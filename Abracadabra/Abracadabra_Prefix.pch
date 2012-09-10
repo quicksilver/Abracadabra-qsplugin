@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'Abracadabra' target in the 'Abracadabra' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
+
+#define RAND1 ((float)rand()/INT_MAX)

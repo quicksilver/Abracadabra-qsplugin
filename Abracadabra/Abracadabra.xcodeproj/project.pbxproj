@@ -1,0 +1,366 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7F19868C096DCA640062711E /* ACLaserKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F19868B096DCA640062711E /* ACLaserKey.m */; };
+		7FD9271A0959E89B00334C11 /* ACGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD927190959E89B00334C11 /* ACGesture.m */; };
+		7FE0061D0A1514930014197D /* ACGestureDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD92B21095BB0C700334C11 /* ACGestureDisplayView.m */; };
+		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CD8CCC4015F2AC41001ACD94 /* Common.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD8CCC3515F2AC26001ACD94 /* Common.xcconfig */; };
+		CD8CCC4115F2AC49001ACD94 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD8CCC3615F2AC26001ACD94 /* Debug.xcconfig */; };
+		CD8CCC4215F2AC49001ACD94 /* Developer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD8CCC3715F2AC26001ACD94 /* Developer.xcconfig */; };
+		CD8CCC4315F2AC49001ACD94 /* QSPlugIn.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD8CCC3815F2AC26001ACD94 /* QSPlugIn.xcconfig */; };
+		CD8CCC4415F2AC4B001ACD94 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD8CCC3A15F2AC26001ACD94 /* Release.xcconfig */; };
+		E14379EF07AA2340007ACBF5 /* Abracadabra.icns in Resources */ = {isa = PBXBuildFile; fileRef = E14379EE07AA2340007ACBF5 /* Abracadabra.icns */; };
+		E16B062607A703E9003FDF4F /* Sparkle.png in Resources */ = {isa = PBXBuildFile; fileRef = E16B062507A703E9003FDF4F /* Sparkle.png */; };
+		E17B202707A73746004A565A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17B202607A73746004A565A /* OpenGL.framework */; };
+		E191D70D079899DC001FFD69 /* ACApp.h in Resources */ = {isa = PBXBuildFile; fileRef = E191D70B079899DC001FFD69 /* ACApp.h */; };
+		E191D70E079899DC001FFD69 /* ACApp.m in Sources */ = {isa = PBXBuildFile; fileRef = E191D70C079899DC001FFD69 /* ACApp.m */; };
+		E191D710079899FD001FFD69 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E191D70F079899FD001FFD69 /* Carbon.framework */; };
+		E19E752A07AE93B3005340FE /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E19E752907AE93B3005340FE /* AGL.framework */; };
+		E1C9D60107A731F9002A1BAE /* ACSparkleWindowController.h in Resources */ = {isa = PBXBuildFile; fileRef = E1C9D5FF07A731F9002A1BAE /* ACSparkleWindowController.h */; };
+		E1C9D60207A731F9002A1BAE /* ACSparkleWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C9D60007A731F9002A1BAE /* ACSparkleWindowController.m */; };
+		E1C9D63B07A73283002A1BAE /* DDGLView.h in Resources */ = {isa = PBXBuildFile; fileRef = E1C9D63707A73283002A1BAE /* DDGLView.h */; };
+		E1C9D63C07A73283002A1BAE /* DDGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C9D63807A73283002A1BAE /* DDGLView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32CA4F630368D1EE00C91783 /* Abracadabra_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Abracadabra_Prefix.pch; sourceTree = "<group>"; };
+		7F19868A096DCA640062711E /* ACLaserKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACLaserKey.h; sourceTree = "<group>"; };
+		7F19868B096DCA640062711E /* ACLaserKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACLaserKey.m; sourceTree = "<group>"; };
+		7F840507096A4AA3006E6F0E /* ACGestureEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACGestureEditView.h; sourceTree = "<group>"; };
+		7F840508096A4AA3006E6F0E /* ACGestureEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACGestureEditView.m; sourceTree = "<group>"; };
+		7FD927180959E89B00334C11 /* ACGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACGesture.h; sourceTree = "<group>"; };
+		7FD927190959E89B00334C11 /* ACGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACGesture.m; sourceTree = "<group>"; };
+		7FD92B20095BB0C700334C11 /* ACGestureDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ACGestureDisplayView.h; sourceTree = "<group>"; };
+		7FD92B21095BB0C700334C11 /* ACGestureDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ACGestureDisplayView.m; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* Abracadabra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Abracadabra.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD8CCC3515F2AC26001ACD94 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		CD8CCC3615F2AC26001ACD94 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		CD8CCC3715F2AC26001ACD94 /* Developer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Developer.xcconfig; sourceTree = "<group>"; };
+		CD8CCC3815F2AC26001ACD94 /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
+		CD8CCC3915F2AC26001ACD94 /* Quicksilver.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Quicksilver.pch; sourceTree = "<group>"; };
+		CD8CCC3A15F2AC26001ACD94 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		E14379EE07AA2340007ACBF5 /* Abracadabra.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Abracadabra.icns; sourceTree = "<group>"; };
+		E16B062507A703E9003FDF4F /* Sparkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sparkle.png; sourceTree = "<group>"; };
+		E17B202607A73746004A565A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		E191D70B079899DC001FFD69 /* ACApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ACApp.h; sourceTree = "<group>"; };
+		E191D70C079899DC001FFD69 /* ACApp.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ACApp.m; sourceTree = "<group>"; };
+		E191D70F079899FD001FFD69 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		E19E752907AE93B3005340FE /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
+		E1C9D5FF07A731F9002A1BAE /* ACSparkleWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSparkleWindowController.h; sourceTree = "<group>"; };
+		E1C9D60007A731F9002A1BAE /* ACSparkleWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACSparkleWindowController.m; sourceTree = "<group>"; };
+		E1C9D63707A73283002A1BAE /* DDGLView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DDGLView.h; sourceTree = "<group>"; };
+		E1C9D63807A73283002A1BAE /* DDGLView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = DDGLView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				E191D710079899FD001FFD69 /* Carbon.framework in Frameworks */,
+				E17B202707A73746004A565A /* OpenGL.framework in Frameworks */,
+				E19E752A07AE93B3005340FE /* AGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7F840507096A4AA3006E6F0E /* ACGestureEditView.h */,
+				7F840508096A4AA3006E6F0E /* ACGestureEditView.m */,
+				7FD92B20095BB0C700334C11 /* ACGestureDisplayView.h */,
+				7FD92B21095BB0C700334C11 /* ACGestureDisplayView.m */,
+				7F19868A096DCA640062711E /* ACLaserKey.h */,
+				7F19868B096DCA640062711E /* ACLaserKey.m */,
+				E1C9D5FF07A731F9002A1BAE /* ACSparkleWindowController.h */,
+				E1C9D60007A731F9002A1BAE /* ACSparkleWindowController.m */,
+				E1C9D63707A73283002A1BAE /* DDGLView.h */,
+				E1C9D63807A73283002A1BAE /* DDGLView.m */,
+				7FD927180959E89B00334C11 /* ACGesture.h */,
+				7FD927190959E89B00334C11 /* ACGesture.m */,
+				E191D70B079899DC001FFD69 /* ACApp.h */,
+				E191D70C079899DC001FFD69 /* ACApp.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E19E752907AE93B3005340FE /* AGL.framework */,
+				E17B202607A73746004A565A /* OpenGL.framework */,
+				E191D70F079899FD001FFD69 /* Carbon.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* Abracadabra.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* Abracadabra */ = {
+			isa = PBXGroup;
+			children = (
+				CD8CCC3415F2AC26001ACD94 /* Configuration */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = Abracadabra;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* Abracadabra_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E14379EE07AA2340007ACBF5 /* Abracadabra.icns */,
+				E16B062507A703E9003FDF4F /* Sparkle.png */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD8CCC3415F2AC26001ACD94 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				CD8CCC3515F2AC26001ACD94 /* Common.xcconfig */,
+				CD8CCC3615F2AC26001ACD94 /* Debug.xcconfig */,
+				CD8CCC3715F2AC26001ACD94 /* Developer.xcconfig */,
+				CD8CCC3815F2AC26001ACD94 /* QSPlugIn.xcconfig */,
+				CD8CCC3915F2AC26001ACD94 /* Quicksilver.pch */,
+				CD8CCC3A15F2AC26001ACD94 /* Release.xcconfig */,
+			);
+			name = Configuration;
+			path = ../../../../../private/tmp/QS/Configuration;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* Abracadabra */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F1898C708FC9B430019FE64 /* Build configuration list for PBXNativeTarget "Abracadabra" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Abracadabra;
+			productInstallPath = "$(HOME)/Applications";
+			productName = Abracadabra;
+			productReference = 8D1107320486CEB800E47090 /* Abracadabra.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 7F1898CB08FC9B430019FE64 /* Build configuration list for PBXProject "Abracadabra" */;
+			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* Abracadabra */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* Abracadabra */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				E191D70D079899DC001FFD69 /* ACApp.h in Resources */,
+				E16B062607A703E9003FDF4F /* Sparkle.png in Resources */,
+				E1C9D60107A731F9002A1BAE /* ACSparkleWindowController.h in Resources */,
+				E1C9D63B07A73283002A1BAE /* DDGLView.h in Resources */,
+				E14379EF07AA2340007ACBF5 /* Abracadabra.icns in Resources */,
+				CD8CCC4015F2AC41001ACD94 /* Common.xcconfig in Resources */,
+				CD8CCC4115F2AC49001ACD94 /* Debug.xcconfig in Resources */,
+				CD8CCC4215F2AC49001ACD94 /* Developer.xcconfig in Resources */,
+				CD8CCC4315F2AC49001ACD94 /* QSPlugIn.xcconfig in Resources */,
+				CD8CCC4415F2AC4B001ACD94 /* Release.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				E191D70E079899DC001FFD69 /* ACApp.m in Sources */,
+				E1C9D60207A731F9002A1BAE /* ACSparkleWindowController.m in Sources */,
+				E1C9D63C07A73283002A1BAE /* DDGLView.m in Sources */,
+				7FD9271A0959E89B00334C11 /* ACGesture.m in Sources */,
+				7F19868C096DCA640062711E /* ACLaserKey.m in Sources */,
+				7FE0061D0A1514930014197D /* ACGestureDisplayView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29B97319FDCFA39411CA2CEA /* English */,
+			);
+			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7F1898C808FC9B430019FE64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD8CCC3615F2AC26001ACD94 /* Debug.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Abracadabra_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = Abracadabra;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		7F1898C908FC9B430019FE64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD8CCC3A15F2AC26001ACD94 /* Release.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Abracadabra_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = Abracadabra;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		7F1898CC08FC9B430019FE64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD8CCC3615F2AC26001ACD94 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		7F1898CD08FC9B430019FE64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD8CCC3A15F2AC26001ACD94 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7F1898C708FC9B430019FE64 /* Build configuration list for PBXNativeTarget "Abracadabra" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F1898C808FC9B430019FE64 /* Debug */,
+				7F1898C908FC9B430019FE64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7F1898CB08FC9B430019FE64 /* Build configuration list for PBXProject "Abracadabra" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F1898CC08FC9B430019FE64 /* Debug */,
+				7F1898CD08FC9B430019FE64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

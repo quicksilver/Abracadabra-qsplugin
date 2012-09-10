@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Abracadabra Triggers</string>
+	<key>CFBundleExecutable</key>
+	<string>Abracadabra Triggers</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.QSGestureTriggers</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Abracadabra Triggers</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.5.0</string>
+	<key>CFBundleVersion</key>
+	<string>121</string>
+	<key>QSDefaults</key>
+	<dict>
+		<key>QSACFailureColor</key>
+		<data>
+		BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWE
+		AWMBhARmZmZmAQAAAYY=
+		</data>
+		<key>QSACFailureSound</key>
+		<string>No Sound</string>
+		<key>QSACGestureColor</key>
+		<data>
+		BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWE
+		AWMBhARmZmZmAAEBAYY=
+		</data>
+		<key>QSACModifierActivation</key>
+		<integer>23</integer>
+		<key>QSACMouseActivation</key>
+		<integer>0</integer>
+		<key>QSACRecognizedColor</key>
+		<data>
+		BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWE
+		AWMBhARmZmZmAAEAAYY=
+		</data>
+		<key>QSACRecognizedSound</key>
+		<string>No Sound</string>
+	</dict>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>New item</key>
+		<string></string>
+		<key>author</key>
+		<string>Alcor with Jason Cornwell</string>
+		<key>categories</key>
+		<array>
+			<string>Quicksilver</string>
+		</array>
+		<key>description</key>
+		<string>Trigger commands with gestures</string>
+		<key>icon</key>
+		<string>Abracadabra</string>
+	</dict>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSPreferencePanes</key>
+		<dict>
+			<key>QSAbracadabraPrefPane</key>
+			<dict>
+				<key>class</key>
+				<string>QSAbracadabraPrefPane</string>
+				<key>description</key>
+				<string>Gesture preferences</string>
+				<key>icon</key>
+				<string>Abracadabra</string>
+				<key>name</key>
+				<string>Abracadabra</string>
+			</dict>
+		</dict>
+		<key>QSTriggerManagers</key>
+		<dict>
+			<key>QSGestureTrigger</key>
+			<string>QSGestureTriggerManager</string>
+		</dict>
+	</dict>
+	<key>QSResourceAdditions</key>
+	<dict>
+		<key>Abracadabra</key>
+		<dict>
+			<key>bundle</key>
+			<string>com.blacktree.Quicksilver.QSGestureTriggers</string>
+			<key>resource</key>
+			<string>Abracadabra.icns</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
