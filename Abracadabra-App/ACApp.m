@@ -27,7 +27,7 @@ OSStatus modChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 }
 
 #define EVENT_COUNT 32
-#define GESTURE_PLIST_PATH @"~/Library/Preferences/GestureFile.plist"
+#define GESTURE_PLIST_PATH @"~/Library/Application Support/Abracadabra.plist"
 OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
 	EventMouseButton button;
     GetEventParameter(theEvent, kEventParamMouseButton,typeMouseButton,0,
@@ -173,10 +173,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 
 - (void)reloadGestureFile:(id)sender{
 	// configure the path to the Gesture plist file
-	NSString *gestureFilePath = GESTURE_PLIST_PATH;
-	gestureFilePath = [gestureFilePath stringByExpandingTildeInPath];
-	gestureFilePath=[@"~/Library/Application Support/Abracadabra.plist" stringByStandardizingPath];
-	
+    NSString *gestureFilePath = [GESTURE_PLIST_PATH stringByExpandingTildeInPath];
 	
 	// If we find a file in the default spot, load it
 	if ([[NSFileManager defaultManager] fileExistsAtPath:gestureFilePath])
