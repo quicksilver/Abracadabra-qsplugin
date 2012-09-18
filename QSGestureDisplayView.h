@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ACGestureEditView.h"
+#import "Abracadabra-App/ACGestureEditView.h"
 @interface QSGestureDisplayView : ACGestureEditView {
 
 }

@@ -7,6 +7,8 @@
 //
 
 #import "QSGestureTriggerManager.h"
+#import "Abracadabra-App/ACGesture.h"
+#import "Abracadabra-App/ACGestureDisplayView.h"
 
 #define QSTriggerCenter NSClassFromString(@"QSTriggerCenter")
 #define NSAllModifierKeysMask (NSShiftKeyMask|NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask|NSFunctionKeyMask)

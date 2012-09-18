@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ACGestureEditView.h"
+@class ACGestureEditView;
+@class ACGesture;
 @interface QSGestureTriggerManager : QSTriggerManager {
 	IBOutlet ACGestureEditView *gestureView;
 	NSMutableDictionary *enabledTriggers;
