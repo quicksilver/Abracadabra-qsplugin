@@ -17,26 +17,26 @@
 #define EVENT_COUNT 32
 #define GESTURE_PLIST_PATH @"~/Library/Application Support/Abracadabra.plist"
 
-static BOOL mouseWasMoved=NO;
 OSStatus mouseMoved(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
-	//NSLog(@"Event received!\n");
-	//mouseWasMoved=YES;
+    ACApp *appDelegate = (ACApp *)userData;
+    NSEvent *event = [NSEvent eventWithEventRef:theEvent];
+    [appDelegate sendEvent:event];
 	return CallNextEventHandler(nextHandler, theEvent);
 }
+
 OSStatus modChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
-	//NSLog(@"Eventx received!\n");
+    ACApp *appDelegate = (ACApp *)userData;
+    NSEvent *event = [NSEvent eventWithEventRef:theEvent];
+    [appDelegate sendEvent:event];
 	return CallNextEventHandler(nextHandler, theEvent);
 }
 
 OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
-	EventMouseButton button;
-    GetEventParameter(theEvent, kEventParamMouseButton,typeMouseButton,0,
-					  sizeof(button),0,&button);
-	
-	//	NSLog(@"------------------event %d",button);
-	//[userData mouseClicked:button];
-	return CallNextEventHandler(nextHandler, theEvent); 
-	return eventNotHandledErr;
+    ACApp *appDelegate = (ACApp *)userData;
+    NSEvent *event = [NSEvent eventWithEventRef:theEvent];
+    [appDelegate sendEvent:event];
+
+	return CallNextEventHandler(nextHandler, theEvent);
 }
 
 @implementation ACApp
@@ -46,44 +46,45 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 	
 }
 
-- (void)setMonitorMouseMovements:(BOOL)flag{
-	//return;
-	static EventHandlerRef mouseMoveRef=NULL;
-	if (flag && !mouseMoveRef){
-		EventTypeSpec    eventTypes[3];
-		eventTypes[0].eventClass = kEventClassMouse;
-		eventTypes[0].eventKind  = kEventMouseMoved;
-		eventTypes[1].eventClass = kEventClassMouse;
-		eventTypes[1].eventKind  = kEventMouseDragged;
-		eventTypes[2].eventClass = kEventClassMouse;
-		eventTypes[2].eventKind  = kEventMouseDown;
-		
-		
+- (void)setMonitorMouseMovements:(BOOL)flag {
+	static EventHandlerRef mouseMoveRef = NULL;
+	if (flag && !mouseMoveRef) {
+		EventTypeSpec eventTypes[4] = {
+            {kEventClassMouse, kEventMouseMoved},
+            {kEventClassMouse, kEventMouseDragged},
+            {kEventClassMouse, kEventMouseUp},
+            {kEventClassMouse, kEventMouseDown},
+        };
+
 		EventHandlerUPP handlerFunction = NewEventHandlerUPP(mouseMoved);
-		OSStatus err=InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 3, eventTypes, NULL, &mouseMoveRef);	
-		
-		static EventHandlerRef trackMouse;
-		EventTypeSpec eventType[2]={{kEventClassMouse, kEventMouseUp}, {kEventClassMouse, kEventMouseDown}};
-		handlerFunction = NewEventHandlerUPP(mouseActivated);
-		InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 2, eventType, self, &trackMouse);
-		
-		//NSLog(@"installing handler %p %d",mouseMoveRef,err);
-		
-		
-				}
-	//else{
-	//					//		NSLog(@"removing handler %p",mouseMoveRef);
-	//					RemoveEventHandler(mouseMoveRef);
-	//					mouseMoveRef=NULL;
-	//				}
+		OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 3, eventTypes, self, &mouseMoveRef);
+        if (err != noErr) {
+            NSLog(@"Failed to install mouse event handler");
+        }
+    } else {
+        if (mouseMoveRef)
+            RemoveEventHandler(mouseMoveRef);
+        mouseMoveRef = NULL;
+    }
 }
-- (void)setMonitorModKeys:(BOOL)flag{
-	EventTypeSpec    eventTypes[1];
-	eventTypes[0].eventClass = kEventClassKeyboard;
-	eventTypes[0].eventKind  = kEventRawKeyModifiersChanged;
-	
-	EventHandlerUPP handlerFunction = NewEventHandlerUPP(modChanged);
-	OSStatus err=InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, eventTypes, NULL, NULL);	
+
+- (void)setMonitorModKeys:(BOOL)flag {
+    static EventHandlerRef modifierKeysRef = NULL;
+    if (flag) {
+        EventTypeSpec    eventTypes[1];
+        eventTypes[0].eventClass = kEventClassKeyboard;
+        eventTypes[0].eventKind  = kEventRawKeyModifiersChanged;
+
+        EventHandlerUPP handlerFunction = NewEventHandlerUPP(modChanged);
+        OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, eventTypes, self, &modifierKeysRef);
+        if (err != noErr) {
+            NSLog(@"Failed to install modifier event handler");
+        }
+    } else {
+        if (modifierKeysRef)
+            RemoveEventHandler(modifierKeysRef);
+        modifierKeysRef = NULL;
+    }
 }
 
 - (id)init {
