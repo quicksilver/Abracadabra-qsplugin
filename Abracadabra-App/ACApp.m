@@ -5,14 +5,14 @@
 //  Created by Nicholas Jitkoff on 8/10/04.
 //  Copyright 2004 __MyCompanyName__. All rights reserved.
 //
-#import "ACLaserKey.h"
+#import <Carbon/Carbon.h>
 
+#import "ACLaserKey.h"
 #import "ACApp.h"
 #import "ACGesture.h"
 #import "DDGLView.h"
 #import "ACGestureDisplayView.h"
-#include <Carbon/Carbon.h>
-#import "ACGestureDisplayView.h"
+
 #define UCSTR(u) [NSString stringWithFormat:@"%C",u]
 
 static BOOL mouseWasMoved=NO;
