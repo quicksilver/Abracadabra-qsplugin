@@ -90,7 +90,7 @@ typedef struct _Vector
 - (void)setImage:(NSImage *)newImage;
 - (id)delegate;
 - (void)setDelegate:(id)newDelegate;
-
+- (void)addParticle:(DDParticle *)particle;
 
 
 @end

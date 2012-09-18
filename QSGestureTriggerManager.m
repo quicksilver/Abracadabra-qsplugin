@@ -135,18 +135,16 @@
 	//NSLog(@"recognized: %@",identifier);
 	QSTrigger *trigger=[[QSTriggerCenter sharedInstance]triggerWithID:identifier];
 	BOOL showStatus=[[[trigger info]objectForKey:@"showWindow"]boolValue];
-	NSWindow *window=nil;
+	QSWindow *window=nil;
 	if (showStatus){
-		window=[self triggerDisplayWindowWithTrigger:trigger];
-		//window=[QSWindow windowWithImage:[[trigger command]icon]];
+		window = (QSWindow *)[self triggerDisplayWindowWithTrigger:trigger];
 		NSDictionary *info=[notif userInfo];
 		NSPoint center=NSPointFromString([info objectForKey:@"center"]);
 		
 		[window setFrame:NSOffsetRect([window frame],center.x-NSMidX([window frame]),center.y-NSMidY([window frame])) display:NO];
 		[window setAlphaValue:0];
-		[(QSWindow *)window reallyOrderFront:self];	
-		[(QSWindow *)window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125",@"duration",@"QSGrowEffect",@"transformFn",@"show",@"type",nil]];
-		//[(QSWindow *)window reallyOrderOut:self];	
+		[window reallyOrderFront:self];
+		[window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125",@"duration",@"QSGrowEffect",@"transformFn",@"show",@"type",nil]];
 	}
 	
 	[trigger execute];

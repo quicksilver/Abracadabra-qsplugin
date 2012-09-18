@@ -88,10 +88,9 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 }
 
 - (id)init {
-	if (self=[super init]){
+	if (self = [super init]) {
 		[[NSDistributedNotificationCenter defaultCenter]postNotificationName:@"com.blacktree.Abracadabra.ShouldQuit" object:nil userInfo:nil deliverImmediately:YES];	
-		
-		
+
 		events=[[NSMutableArray arrayWithCapacity:EVENT_COUNT]retain];
 		gestureDictionary=[[NSMutableDictionary alloc]init];
 		
@@ -144,7 +143,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 		@"QSACFailureSound",
 		@"QSACRecognizedSound",
 		nil];
-	NSDictionary *dict=CFPreferencesCopyMultiple(array, (CFStringRef)@"com.blacktree.Quicksilver", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+	NSDictionary *dict = (NSDictionary *)CFPreferencesCopyMultiple((CFArrayRef)array, (CFStringRef)@"com.blacktree.Quicksilver", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
 	
 	[self setPreferences:dict];
 	if ([dict objectForKey:@"QSACGestureColor"])
@@ -204,9 +203,9 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 // load gesture dictionary from plist file
 -(bool)loadGestureDictFromFile:(NSString *) filePath 
 {
-	NSMutableDictionary *plistGestureDict, *pointDict;
-	NSEnumerator *gestureEnumerator, *pointEnumerator;
-	NSMutableArray *nestedGesture, *gesture;
+	NSMutableDictionary *plistGestureDict;
+	NSEnumerator *gestureEnumerator;
+    ACGesture *gesture;
 	id key;
 	
 	// walk through plist dictionary to regenerate gesture dictionary
@@ -232,7 +231,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 // return the string id of the closest match to gesture
 -(NSString *)recognizeGesture:(ACGesture *) gesture
 {
-	int i;
+	NSUInteger i;
 	float score, maxScore;
 	NSArray * keys;
 	NSString * topGestureName;
@@ -284,7 +283,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
     [result setMovableByWindowBackground:NO];
     [result setLevel:kCGMaximumWindowLevel];
     [result setHasShadow:NO];
-	NSView *contentView=[[[ACGestureDisplayView alloc]init]autorelease];
+	ACGestureDisplayView *contentView = [[[ACGestureDisplayView alloc] init] autorelease];
     [result setContentView:contentView];
 	[contentView setGesture:gesture];
 	[result setCanHide:NO];
@@ -350,7 +349,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 			particle->yv=5.0f*(-0.5f + RAND1);
 			particle->life=((float)i/32)*3.0f + RAND1;
 			[particle setColor:color];
-			[[[controller window]contentView] addParticle:particle];
+			[(DDGLView *)[[controller window] contentView] addParticle:particle];
 			
 		}
 		
@@ -382,7 +381,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 			particle->yv=300.0f*(-0.5f + RAND1);
 			particle->life=((float)i/32)*1.0f + RAND1;
 			[particle setColor:color];
-			[[[controller window]contentView]addParticle:particle];
+			[(DDGLView *)[[controller window]contentView]addParticle:particle];
 			
 		}
 		
@@ -452,7 +451,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 	NSColor *color=[self gestureColor];
 	if (!color)color=[NSColor colorWithCalibratedRed:0.0f green:0.7f blue:1.0f alpha:1.0f];
 	[particle setColor:color];
-	[[[controller window]contentView]addParticle:particle];
+	[(DDGLView *)[[controller window]contentView]addParticle:particle];
 	
 	//[[[controller window]contentView]addParticleAtPoint:location];
 	//[animator createWindowAtPoint:location];
