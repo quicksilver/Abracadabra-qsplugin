@@ -14,6 +14,8 @@
 #import "ACGestureDisplayView.h"
 
 #define UCSTR(u) [NSString stringWithFormat:@"%C",u]
+#define EVENT_COUNT 32
+#define GESTURE_PLIST_PATH @"~/Library/Application Support/Abracadabra.plist"
 
 static BOOL mouseWasMoved=NO;
 OSStatus mouseMoved(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
@@ -26,8 +28,6 @@ OSStatus modChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	return CallNextEventHandler(nextHandler, theEvent);
 }
 
-#define EVENT_COUNT 32
-#define GESTURE_PLIST_PATH @"~/Library/Application Support/Abracadabra.plist"
 OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
 	EventMouseButton button;
     GetEventParameter(theEvent, kEventParamMouseButton,typeMouseButton,0,

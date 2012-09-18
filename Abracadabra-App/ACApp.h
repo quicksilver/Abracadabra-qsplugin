@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#define EVENT_COUNT 32
 #import "ACCursorTrailAnimator.h"
 #import "ACSparkleWindowController.h"
 
