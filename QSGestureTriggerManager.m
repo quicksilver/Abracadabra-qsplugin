@@ -148,7 +148,11 @@
 		[window setFrame:NSOffsetRect([window frame],center.x-NSMidX([window frame]),center.y-NSMidY([window frame])) display:NO];
 		[window setAlphaValue:0];
 		[window reallyOrderFront:self];
-		[window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125",@"duration",@"QSGrowEffect",@"transformFn",@"show",@"type",nil]];
+		[window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:
+                               @"0.125", @"duration",
+                               @"QSGrowEffect", @"transformFn",
+                               @"show", @"type",
+                               nil]];
 	}
 	
 	[trigger execute];
@@ -183,8 +187,8 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[self launchAbra];
 }
-- (void)launchAbra{
-	
+
+- (void)launchAbra {
 	//[[NSDistributedLock lockWithPath:[@"~/.abralock",NO)];
 	NSBundle *bundle=[NSBundle bundleForClass:[self class]];
 	NSString *path=[bundle pathForResource:@"Abracadabra" ofType:@"app"];

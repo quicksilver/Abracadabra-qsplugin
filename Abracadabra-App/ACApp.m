@@ -124,15 +124,14 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 														   selector:@selector(terminate:)
 															   name:ACAbracadabraShouldQuitNotification
                                                              object:nil];
-		
-		modKeyActivation=23; 
-		mouseActivation=0;
+
+		modKeyActivation = 23; 
+		mouseActivation = 0;
 		[self setRecognizedColor:[NSColor greenColor]];
 		[self setGestureColor:[NSColor cyanColor]];
 		[self setFailureColor:[NSColor redColor]];
 		[self reloadGestureFile:nil];
-		
-	   }
+    }
 	return self;
 }
 
