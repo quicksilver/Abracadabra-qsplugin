@@ -35,6 +35,7 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* Abracadabra_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Abracadabra_Prefix.pch; sourceTree = "<group>"; };
+		4D19A24F160A7C15006E6592 /* ACNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACNotifications.h; sourceTree = "<group>"; };
 		7F19868A096DCA640062711E /* ACLaserKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACLaserKey.h; sourceTree = "<group>"; };
 		7F19868B096DCA640062711E /* ACLaserKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACLaserKey.m; sourceTree = "<group>"; };
 		7F840507096A4AA3006E6F0E /* ACGestureEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACGestureEditView.h; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 				7FD927190959E89B00334C11 /* ACGesture.m */,
 				E191D70B079899DC001FFD69 /* ACApp.h */,
 				E191D70C079899DC001FFD69 /* ACApp.m */,
+				4D19A24F160A7C15006E6592 /* ACNotifications.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";

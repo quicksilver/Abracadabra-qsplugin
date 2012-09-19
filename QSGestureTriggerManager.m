@@ -9,6 +9,7 @@
 #import "QSGestureTriggerManager.h"
 #import "Abracadabra-App/ACGesture.h"
 #import "Abracadabra-App/ACGestureDisplayView.h"
+#import "Abracadabra-App/ACNotifications.h"
 
 #define QSTriggerCenter NSClassFromString(@"QSTriggerCenter")
 #define NSAllModifierKeysMask (NSShiftKeyMask|NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask|NSFunctionKeyMask)
@@ -110,7 +111,7 @@
 		
 		[[NSDistributedNotificationCenter defaultCenter]addObserver:self
 														   selector:@selector(gestureRecognized:)
-															   name:@"com.blacktree.Abracadabra.GestureRecognized"
+															   name:ACAbracadabraGestureRecognizedNotification
 															 object:nil];
 		
 		[[NSNotificationCenter defaultCenter]addObserver:self
@@ -127,7 +128,10 @@
 }
 
 - (void)appTerminating:(NSNotification *)notif{
-	[[NSDistributedNotificationCenter defaultCenter]postNotificationName:@"com.blacktree.Abracadabra.ShouldQuit" object:nil userInfo:nil deliverImmediately:YES];	
+	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraShouldQuitNotification
+                                                                   object:nil
+                                                                 userInfo:nil
+                                                       deliverImmediately:YES];
 }
 - (void)gestureRecognized:(NSNotification *)notif{
 	NSString *identifier=[notif object];
@@ -212,9 +216,12 @@
 	NSMutableDictionary *gestureDictionary=[NSMutableDictionary dictionaryWithObjects:values forKeys:keys];
 	[gestureDictionary removeObjectsForKeys:[gestureDictionary allKeysForObject:[NSNull null]]];
 	//NSLog(@"writing %@",gestureDictionary );
-	[gestureDictionary writeToFile:[@"~/Library/Application Support/Abracadabra.plist" stringByStandardizingPath] atomically:NO];
+	[gestureDictionary writeToFile:[ACGestureFilePath stringByStandardizingPath] atomically:NO];
 	
-	[[NSDistributedNotificationCenter defaultCenter]postNotificationName:@"com.blacktree.Abracadabra.GestureFileChanged" object:nil userInfo:nil deliverImmediately:NO];
+	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraGesturesChangedNotification
+                                                                   object:nil
+                                                                 userInfo:nil
+                                                       deliverImmediately:NO];
 }
 
 

@@ -12,10 +12,10 @@
 #import "ACGesture.h"
 #import "DDGLView.h"
 #import "ACGestureDisplayView.h"
+#import "ACNotifications.h"
 
 #define UCSTR(u) [NSString stringWithFormat:@"%C",u]
 #define EVENT_COUNT 32
-#define GESTURE_PLIST_PATH @"~/Library/Application Support/Abracadabra.plist"
 
 OSStatus mouseMoved(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
     ACApp *appDelegate = (ACApp *)userData;
@@ -89,7 +89,10 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 
 - (id)init {
 	if (self = [super init]) {
-		[[NSDistributedNotificationCenter defaultCenter]postNotificationName:@"com.blacktree.Abracadabra.ShouldQuit" object:nil userInfo:nil deliverImmediately:YES];	
+		[[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraShouldQuitNotification
+                                                                       object:nil
+                                                                     userInfo:nil
+                                                           deliverImmediately:YES];
 
 		events=[[NSMutableArray arrayWithCapacity:EVENT_COUNT]retain];
 		gestureDictionary=[[NSMutableDictionary alloc]init];
@@ -109,14 +112,18 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 		magicAmount=0.5;
 		[[NSDistributedNotificationCenter defaultCenter]addObserver:self
 														   selector:@selector(reloadGestureFile:)
-															   name:@"com.blacktree.Abracadabra.GestureFileChanged" object:nil];
+															   name:ACAbracadabraGesturesChangedNotification
+                                                             object:nil];
 		
 		[[NSDistributedNotificationCenter defaultCenter]addObserver:self
 														   selector:@selector(reloadPreferences:)
-															   name:@"com.blacktree.Abracadabra.PreferencesChanged" object:nil];
+															   name:ACAbracadabraPreferencesChangedNotification
+                                                             object:nil];
+
 		[[NSDistributedNotificationCenter defaultCenter]addObserver:self
 														   selector:@selector(terminate:)
-															   name:@"com.blacktree.Abracadabra.ShouldQuit" object:nil];
+															   name:ACAbracadabraShouldQuitNotification
+                                                             object:nil];
 		
 		modKeyActivation=23; 
 		mouseActivation=0;
@@ -173,7 +180,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 
 - (void)reloadGestureFile:(id)sender{
 	// configure the path to the Gesture plist file
-    NSString *gestureFilePath = [GESTURE_PLIST_PATH stringByExpandingTildeInPath];
+    NSString *gestureFilePath = [ACGestureFilePath stringByExpandingTildeInPath];
 	
 	// If we find a file in the default spot, load it
 	if ([[NSFileManager defaultManager] fileExistsAtPath:gestureFilePath])
@@ -312,10 +319,10 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 		//		CGPostKeyboardEvent(0,57,TRUE);
 		//		CGPostKeyboardEvent(0,57,FALSE);
 		
-		[[NSDistributedNotificationCenter defaultCenter]postNotificationName:@"com.blacktree.Abracadabra.GestureRecognized"
-																	  object:recognizedGesture
-																	userInfo:dict
-														  deliverImmediately:YES];
+		[[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraGestureRecognizedNotification
+                                                                       object:recognizedGesture
+                                                                     userInfo:dict
+                                                           deliverImmediately:YES];
 		
 		NSString *sound=[preferences objectForKey:@"QSACRecognizedSound"];
 		//[[[[NSSound alloc]initWithContentsOfFile:@"/System/Library/Sounds/Blow.aiff" byReference:YES]autorelease]play];

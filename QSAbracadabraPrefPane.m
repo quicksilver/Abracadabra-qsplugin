@@ -1,4 +1,5 @@
 #import "QSAbracadabraPrefPane.h"
+#import "Abracadabra-App/ACNotifications.h"
 
 @implementation QSAbracadabraPrefPane
 #define SERIALPORT @"/dev/cu.CL800BT-SerialPort-1"
@@ -45,9 +46,12 @@
 	if (sender==rejectedSoundPopUp || sender==recognizedSoundPopUp){
 		[[NSSound soundNamed:[sender title]]play];	
 	}
-	
-	[[NSDistributedNotificationCenter defaultCenter]postNotificationName:@"com.blacktree.Abracadabra.PreferencesChanged" object:nil userInfo:nil deliverImmediately:YES];
-	[[NSUserDefaults standardUserDefaults]synchronize];
+
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraPreferencesChangedNotification
+                                                                   object:nil
+                                                                 userInfo:nil
+                                                       deliverImmediately:YES];
 }
 
 @end
