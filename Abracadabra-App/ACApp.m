@@ -135,22 +135,28 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 	return self;
 }
 
-- (void)reloadPreferences:(id)sender{
-	CFPreferencesSynchronize((CFStringRef)@"com.blacktree.Quicksilver", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-	
-	NSArray *array=[NSArray arrayWithObjects:
-		@"QSACModifierActivation",
-		@"QSACMouseActivation",
-		@"QSACGestureColor",
-		@"QSACRecognizedColor",
-		@"QSACFailureColor",
-		@"QSACEnableLaserKey",
-		@"QSACMagicAmount",
-		@"QSACFailureSound",
-		@"QSACRecognizedSound",
-		nil];
-	NSDictionary *dict = (NSDictionary *)CFPreferencesCopyMultiple((CFArrayRef)array, (CFStringRef)@"com.blacktree.Quicksilver", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-	
+- (void)reloadPreferences:(NSNotification *)notification {
+    NSDictionary *dict = [[notification userInfo] copy];
+    if (!dict) {
+        // There's no notification => we're launching, read from defaults.
+        CFPreferencesSynchronize((CFStringRef)@"com.blacktree.Quicksilver", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+
+        NSArray *array = [NSArray arrayWithObjects:
+                          @"QSACModifierActivation",
+                          @"QSACMouseActivation",
+                          @"QSACGestureColor",
+                          @"QSACRecognizedColor",
+                          @"QSACFailureColor",
+                          @"QSACEnableLaserKey",
+                          @"QSACMagicAmount",
+                          @"QSACFailureSound",
+                          @"QSACRecognizedSound",
+                          nil];
+        dict = (NSDictionary *)CFPreferencesCopyMultiple((CFArrayRef)array, (CFStringRef)@"com.blacktree.Quicksilver", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+    }
+
+//    NSLog(@"Abracadabra pref: %@", dict);
+
 	[self setPreferences:dict];
 	if ([dict objectForKey:@"QSACGestureColor"])
 		[self setGestureColor:[NSUnarchiver unarchiveObjectWithData:[dict objectForKey:@"QSACGestureColor"]]];

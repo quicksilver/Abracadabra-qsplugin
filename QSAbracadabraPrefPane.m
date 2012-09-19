@@ -48,9 +48,29 @@
 	}
 
 	[[NSUserDefaults standardUserDefaults] synchronize];
+    NSMutableDictionary *prefValues = [NSMutableDictionary dictionary];
+    NSArray *prefKeys = [NSArray arrayWithObjects:
+                         @"QSACModifierActivation",
+                         @"QSACMouseActivation",
+                         @"QSACGestureColor",
+                         @"QSACRecognizedColor",
+                         @"QSACFailureColor",
+                         @"QSACEnableLaserKey",
+                         @"QSACMagicAmount",
+                         @"QSACFailureSound",
+                         @"QSACRecognizedSound",
+                         nil];
+    for (NSString *key in prefKeys) {
+        id value = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+        if (value)
+            [prefValues setObject:value forKey:key];
+    }
+
+//    NSLog(@"Abracadabra prefs: %@", prefValues);
+
 	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraPreferencesChangedNotification
                                                                    object:nil
-                                                                 userInfo:nil
+                                                                 userInfo:prefValues
                                                        deliverImmediately:YES];
 }
 
