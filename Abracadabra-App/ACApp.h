@@ -33,7 +33,6 @@
 	NSColor *gestureColor;
 	NSColor *recognizedColor;
 	NSColor *failureColor;
-	float magicAmount;
 	NSDictionary *preferences;
 	id laserKey;
 }

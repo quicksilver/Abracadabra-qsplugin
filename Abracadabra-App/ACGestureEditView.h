@@ -17,3 +17,8 @@
 - (void)setDelegate:(id)newDelegate;
 
 @end
+
+@protocol ACGestureEditViewDelegate <NSObject>
+@optional
+- (void)gestureView:(ACGestureEditView *)view drewGesture:(ACGesture *)gesture;
+@end

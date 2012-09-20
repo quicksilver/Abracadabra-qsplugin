@@ -10,21 +10,16 @@
 #import <Cocoa/Cocoa.h>
 #import "ACGesture.h"
 
-NSPoint ACUnitPointInFrame(NSPoint p,NSRect r);
-NSPoint ACCenteredUnitPointInFrame(NSPoint p,NSRect r);
-NSPoint ACUnitPointWithCenterAndScale(NSPoint p,NSPoint c,float scale);
-void ACDrawDotAtPoint(NSPoint p,float r);
+NSPoint ACUnitPointInFrame(NSPoint p, NSRect r);
+NSPoint ACCenteredUnitPointInFrame(NSPoint p, NSRect r);
+NSPoint ACUnitPointWithCenterAndScale(NSPoint p, NSPoint c, CGFloat scale);
+void ACDrawDotAtPoint(NSPoint p, CGFloat r);
 	
-@interface ACGestureDisplayView : NSView
-{
+@interface ACGestureDisplayView : NSView {
 	ACGesture *gesture;
 	NSArray *events;
 	BOOL drawToScale;
 }
-
 - (ACGesture *)gesture;
 - (void)setGesture:(ACGesture *)newGesture;
-
-
-
 @end
