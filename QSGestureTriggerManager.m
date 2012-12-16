@@ -94,6 +94,7 @@
                                                  selector:@selector(appTerminating:)
                                                      name:NSApplicationWillTerminateNotification
                                                    object:nil];
+        [self launchAbra];
     }
     return self;
 }
@@ -171,19 +172,22 @@
 	NDProcess *proc = [NDProcess processForApplicationPath:path];
 
 	if (!proc) {
-		if (VERBOSE) NSLog(@"Launch Abracadabra");
-		FSRef ref;
-		[path getFSRef:&ref];
-		
-		LSApplicationParameters param;
-		param.version=0;
-		param.application=&ref;
-		param.flags=kLSLaunchDontSwitch;
-		param.asyncLaunchRefCon=NULL;
-		param.environment=NULL;
-		param.argv=NULL;
-		param.initialEvent=NULL;
-		LSOpenApplication(&param,NULL);
+		NSLog(@"Launching Abracadabra");
+        FSRef ref;
+        [path getFSRef:&ref];
+        OSStatus status;
+
+        LSApplicationParameters param;
+        param.version=0;
+        param.application=&ref;
+        param.flags=kLSLaunchDontSwitch;
+        param.asyncLaunchRefCon=NULL;
+        param.environment=NULL;
+        param.argv=NULL;
+        param.initialEvent=NULL;
+        status = LSOpenApplication(&param,NULL);
+        if (status != noErr)
+            NSLog(@"Error starting Abracadabra: %ld", (long)status);
 	}
 }
 
