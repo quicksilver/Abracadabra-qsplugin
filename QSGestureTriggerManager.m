@@ -200,7 +200,7 @@
 	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraGesturesChangedNotification
                                                                    object:nil
                                                                  userInfo:nil
-                                                       deliverImmediately:NO];
+                                                       deliverImmediately:YES];
 }
 
 - (NSString *)descriptionForTrigger:(NSDictionary *)dict {
