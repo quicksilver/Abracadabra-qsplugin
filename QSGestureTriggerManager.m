@@ -158,14 +158,6 @@
     return YES;
 }
 
-#warning: tiennou this doesn't look used
-- (void)abraTerminated:(NSNotification *)notif {
-	[abraTask release];
-	abraTask = nil;
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[self launchAbra];
-}
-
 - (void)launchAbra {
 	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
 	NSString *path = [bundle pathForResource:@"Abracadabra" ofType:@"app"];

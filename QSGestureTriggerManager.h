@@ -14,7 +14,6 @@
 @interface QSGestureTriggerManager : QSTriggerManager {
 	IBOutlet ACGestureEditView *gestureView;
 	NSMutableDictionary *enabledTriggers;
-	NSTask *abraTask;
 }
 
 + (id)sharedInstance;
