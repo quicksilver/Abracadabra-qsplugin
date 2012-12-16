@@ -191,7 +191,7 @@
 	NSMutableDictionary *gestureDictionary = [NSMutableDictionary dictionaryWithObjects:values forKeys:keys];
 	[gestureDictionary removeObjectsForKeys:[gestureDictionary allKeysForObject:[NSNull null]]];
 
-	[gestureDictionary writeToFile:[ACGestureFilePath stringByStandardizingPath] atomically:NO];
+	[gestureDictionary writeToFile:[ACGestureFilePath stringByStandardizingPath] atomically:YES];
 	
 	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraGesturesChangedNotification
                                                                    object:nil
