@@ -116,6 +116,9 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 														   selector:@selector(terminate:)
 															   name:ACAbracadabraShouldQuitNotification
                                                              object:nil];
+        
+        // stop watching mouse in response to certain events that are otherwise missed
+        [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(stopWatchingMouse:) name:NSWorkspaceActiveSpaceDidChangeNotification object:nil];
 
 		modKeyActivation = 23; 
 		mouseActivation = 0;
@@ -190,6 +193,10 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 	[self reloadPreferences:nil];
 }
 
+- (void)stopWatchingMouse:(NSNotification *)notif
+{
+    [self setWatchMouse:NO];
+}
 
 // load gesture dictionary from plist file
 - (BOOL)loadGestureDictFromFile:(NSString *)filePath {
@@ -410,6 +417,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 }
 
 - (void)setWatchMouse:(BOOL)flag {
+    //NSLog(@"Abracadabra: %@watching mouse", flag ? @"" : @"not ");
 	lastPoint = NSZeroPoint;
     watchMouse = flag;
 }
