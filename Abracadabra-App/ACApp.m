@@ -378,8 +378,10 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
             break;
 
         case NSFlagsChanged:
-            if (modKeyActivation)
-                [self setWatchMouse:([event modifierFlags] & (1 << modKeyActivation)) > 0];
+            if (modKeyActivation) {
+                NSUInteger flags = [event modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+                [self setWatchMouse:(flags == 1 << modKeyActivation)];
+            }
             break;
 	}
 	[super sendEvent:event];
