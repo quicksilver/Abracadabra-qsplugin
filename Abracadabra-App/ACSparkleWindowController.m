@@ -21,7 +21,7 @@ OSStatus CGSGetWindowTags(CGSConnection cid,CGSWindow widow,int *tags,int other)
 OSStatus CGSSetWindowTags(CGSConnection cid,CGSWindow widow,int *tags,int other);
 
 @implementation NSWindow (Fade)
--(void)setSticky:(BOOL)flag {
+- (void)setSticky:(BOOL)flag {
     CGSConnection cid;
     
     CGSWindow wid;
@@ -43,9 +43,8 @@ OSStatus CGSSetWindowTags(CGSConnection cid,CGSWindow widow,int *tags,int other)
 
 @implementation ACSparkleWindowController
 
-- (void)loadWindow{
-	
-	
+- (void)loadWindow {
+
 	//	if (1){
 	//	WindowRef window;
 	//	AGLContext glContext;
@@ -97,8 +96,11 @@ OSStatus CGSSetWindowTags(CGSConnection cid,CGSWindow widow,int *tags,int other)
 	//	return;
 	//	
 	//}
-	
-	NSWindow* result = [[NSWindow alloc]initWithContentRect:/*NSMakeRect(0,0,640,640)*/[[NSScreen mainScreen]frame] styleMask: NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+#warning tiennou: This embeds the current screen resolution, right ?
+	NSWindow* result = [[NSWindow alloc] initWithContentRect:[[NSScreen mainScreen] frame]
+                                                   styleMask:NSBorderlessWindowMask
+                                                     backing:NSBackingStoreBuffered
+                                                       defer:NO];
 	[result setBackgroundColor: [NSColor clearColor]];
     [result setOpaque:NO];
     [result setAlphaValue:0.999f];
@@ -108,19 +110,18 @@ OSStatus CGSSetWindowTags(CGSConnection cid,CGSWindow widow,int *tags,int other)
     [result setLevel:kCGMaximumWindowLevel];
     [result setHasShadow:NO];
 	[result setSticky:YES];
-	NSView *contentView=[[[DDGLView alloc]init]autorelease];
+	DDGLView *contentView = [[[DDGLView alloc] init] autorelease];
     [result setContentView:contentView];
 	[contentView setDelegate:self];
 	[result setCanHide:NO];
     [self setWindow:result];
 }
-- (void)sparkleStarted{
-//	NSLog(@"started");	
-	[[self window]orderFront:self];
+
+- (void)sparkleStarted {
+	[[self window] orderFront:self];
 }
-- (void)sparkleStopped{
-//	NSLog(@"stopped");	
-	
-	[[self window]orderOut:self];
+
+- (void)sparkleStopped {
+	[[self window] orderOut:self];
 }
 @end

@@ -17,15 +17,15 @@
 }
 + (ACGesture *)gestureWithDictionary:(NSDictionary *)dictionary;
 - (ACGesture *)initWithEventArray:(NSArray *)array;
-- (float)compareGesture:(ACGesture *)gesture;
-- (float)dotProductWithGesture:(ACGesture *)gesture;
+- (CGFloat)compareGesture:(ACGesture *)gesture;
+- (CGFloat)dotProductWithGesture:(ACGesture *)gesture;
 - (NSBezierPath *)path;
-- (float)length;
+- (CGFloat)length;
 - (NSPointPointer)points;
 - (NSPoint)center;
 - (void)setCenter:(NSPoint)newCenter;
 - (NSSize)size;
 - (void)setSize:(NSSize)newSize;
 
-
+- (NSDictionary *)dictionaryRepresentation;
 @end

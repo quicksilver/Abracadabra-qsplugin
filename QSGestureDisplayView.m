@@ -11,14 +11,13 @@
 
 @implementation QSGestureDisplayView
 
-
-- (void)drawBackgroundInRect:(NSRect)rect{
-	NSBezierPath *path=[[[NSBezierPath alloc] init]autorelease];
+- (void)drawBackgroundInRect:(NSRect)rect {
+	NSBezierPath *path = [[[NSBezierPath alloc] init] autorelease];
 	[path appendBezierPathWithRoundedRectangle:rect withRadius:4];
 	[path setClip];
-	QSFillRectWithGradientFromEdge(rect,[NSColor darkGrayColor],[NSColor grayColor],NSMaxYEdge);
+	QSFillRectWithGradientFromEdge(rect, [NSColor darkGrayColor], [NSColor grayColor], NSMaxYEdge);
 	
-	[[NSColor darkGrayColor]set];
+	[[NSColor darkGrayColor] set];
 	[path stroke];
 }
 @end

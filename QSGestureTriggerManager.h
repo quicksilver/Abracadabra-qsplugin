@@ -10,11 +10,11 @@
 
 @class ACGestureEditView;
 @class ACGesture;
+
 @interface QSGestureTriggerManager : QSTriggerManager {
 	IBOutlet ACGestureEditView *gestureView;
 	NSMutableDictionary *enabledTriggers;
-	NSTask *abraTask;
- }
+}
 
 + (id)sharedInstance;
 - (void)gestureView:(ACGestureEditView *)view drewGesture:(ACGesture *)gesture;
