@@ -2,7 +2,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSAbracadabraPrefPane : QSPreferencePane{
+@interface QSAbracadabraPrefPane : QSPreferencePane {
 	IBOutlet NSPopUpButton *recognizedSoundPopUp;
 	IBOutlet NSPopUpButton *rejectedSoundPopUp;
 }

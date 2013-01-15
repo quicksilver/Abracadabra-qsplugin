@@ -41,7 +41,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 
 @implementation ACApp
 
-+(void)registerEventHandlers{
++ (void)registerEventHandlers {
 	//	if (VERBOSE) NSLog(@"Registering for Global Mouse Events");
 	
 }
@@ -94,22 +94,14 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
                                                                      userInfo:nil
                                                            deliverImmediately:YES];
 
-		events=[[NSMutableArray arrayWithCapacity:EVENT_COUNT]retain];
-		gestureDictionary=[[NSMutableDictionary alloc]init];
-		
-		
+		events = [[NSMutableArray arrayWithCapacity:EVENT_COUNT] retain];
+		gestureDictionary = [[NSMutableDictionary alloc] init];
+
 		[self setMonitorModKeys:YES];
 		[self setMonitorMouseMovements:YES];
-		
-		//	cursorWindow=[[NSWindow windowWithImage:[[NSCursor arrowCursor]image]]retain];
-		//		[cursorWindow setLevel: kCGCursorWindowLevel];
-		//		[cursorWindow orderFront:self];
-		//		[cursorWindow setAlphaValue:0.75];
-		//
-		//	hotSpot=[[NSCursor arrowCursor]hotSpot];
+
 		[self setDelegate:self];
-		
-		magicAmount=0.5;
+
 		[[NSDistributedNotificationCenter defaultCenter]addObserver:self
 														   selector:@selector(reloadGestureFile:)
 															   name:ACAbracadabraGesturesChangedNotification
@@ -169,21 +161,16 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 	
 	if ([dict objectForKey:@"QSACMouseActivation"])
 		mouseActivation=[[dict objectForKey:@"QSACMouseActivation"] unsignedIntegerValue];
-	
-	// NSLog(@"loaded preferences %@",dict);
-	//	 magicAmount=[dict objectForKey:@"QSACMagicAmount"]?[[dict objectForKey:@"QSACMagicAmount"]floatValue]:0.5;
-	
-	if([[dict objectForKey:@"QSACEnableLaserKey"]boolValue]){
-		[self setLaserKey:[[[ACLaserKey alloc]init]autorelease]];
-	}else{
+
+	if ([[dict objectForKey:@"QSACEnableLaserKey"] boolValue]) {
+		[self setLaserKey:[[[ACLaserKey alloc] init] autorelease]];
+	} else {
 		[self setLaserKey:nil];
 	}
-	
-	//[NSNS
 	[dict release];
 }
 
-- (void)reloadGestureFile:(id)sender{
+- (void)reloadGestureFile:(id)sender {
 	// configure the path to the Gesture plist file
     NSString *gestureFilePath = [ACGestureFilePath stringByExpandingTildeInPath];
 	
@@ -193,101 +180,65 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 		[self loadGestureDictFromFile:gestureFilePath];
 	}
 }
-#define mOptionKeyIsDown (GetCurrentKeyModifiers()&optionKey)
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification{
-	//NSDistributedLock *lock=[NSDistributedLock lockWithPath:[@"~/Library/Application Support/.AbracadabraLock" stringByStandardizingPath]];
-	
-	//BOOL success=[lock tryLock];
-	//	NSLog(@"abralock %d %@",success,[lock lockDate]);
-	//if (!(GetCurrentKeyModifiers() & (optionKey | rightOptionKey))){
-	controller=[[ACSparkleWindowController alloc]init];
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	controller = [[ACSparkleWindowController alloc] init];
 	[controller loadWindow];
 	[controller showWindow:self];
-	//	[cursorWindow close];
-	cursorWindow=nil;
-	//}
+	cursorWindow = nil;
 	
 	[self reloadPreferences:nil];
 }
 
 
 // load gesture dictionary from plist file
--(bool)loadGestureDictFromFile:(NSString *) filePath 
-{
+- (BOOL)loadGestureDictFromFile:(NSString *)filePath {
 	NSMutableDictionary *plistGestureDict;
-	NSEnumerator *gestureEnumerator;
     ACGesture *gesture;
-	id key;
-	
+
 	// walk through plist dictionary to regenerate gesture dictionary
 	plistGestureDict = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
-	if(nil != plistGestureDict)
-	{	
-		[gestureDictionary removeAllObjects];
-		//NSLog(@"gestur %@",[plistGestureDict allKeys]);
-		gestureEnumerator = [plistGestureDict keyEnumerator];
-		while ((key = [gestureEnumerator nextObject]))
-		{
-			gesture = [ACGesture gestureWithDictionary:[plistGestureDict valueForKey:key]];
-			[gestureDictionary setValue:gesture forKey:key];
-			//NSLog(@"loaded %@ %@",key, gesture);
-		}
-		return YES;
-	}
-	else
-		return NO;
-	
+	if (!plistGestureDict)
+        return NO;
+
+    [gestureDictionary removeAllObjects];
+    for (NSString *key in plistGestureDict) {
+        gesture = [ACGesture gestureWithDictionary:[plistGestureDict valueForKey:key]];
+        [gestureDictionary setValue:gesture forKey:key];
+    }
+    return YES;
 }
 
 // return the string id of the closest match to gesture
--(NSString *)recognizeGesture:(ACGesture *) gesture
-{
-	NSUInteger i;
+- (NSString *)recognizeGesture:(ACGesture *)gesture {
 	float score, maxScore;
-	NSArray * keys;
 	NSString * topGestureName;
-	NSString * gestureName;
-	ACGesture * libraryGesture;
-	
-	// get all gesture ideas
-	keys = [gestureDictionary allKeys];
-	
+
 	maxScore = 0.0f;
 	score = 0.0f;
-	
 	// walk through the list of gestures
-	for (i=0; i < [keys count]; i++)
-	{
-		gestureName = [keys objectAtIndex:i];
-		libraryGesture = [gestureDictionary objectForKey:gestureName];
+    for (NSString *gestureName in gestureDictionary) {
+        ACGesture *libraryGesture = [gestureDictionary objectForKey:gestureName];
 		
 		// generate a score for the gesture
 		score = [libraryGesture compareGesture:gesture];
-		//NSLog(@"%@: score %f",gestureName,score);
-		// add the score to the last match dictionary so we can examine the results later
-		//	[lastMatchDictionary setValue:[NSNumber numberWithFloat:score] forKey:gestureName];
-		
-		
-		if (score > maxScore)
-		{
+
+        // if that gesture's score is higher than the current max, store its name for later
+		if (score > maxScore) {
 			maxScore = score;
-			topGestureName = [keys objectAtIndex:i];
+			topGestureName = gestureName;
 		}
-		
 	}
-	if (maxScore > 0.9) 
-	{
-		return topGestureName;
-	}
-	else
-		return nil;
+    return (maxScore > 0.9 ? topGestureName : nil);
 }
 
 
-- (void)showGesture:(ACGesture *)gesture{
-	NSWindow* result = [[NSWindow alloc]initWithContentRect:NSMakeRect(0,0,512,512) styleMask: NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-	[result setBackgroundColor: [NSColor whiteColor]];
+- (void)showGesture:(ACGesture *)gesture {
+	NSWindow *result = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 512, 512)
+                                                   styleMask:NSBorderlessWindowMask
+                                                     backing:NSBackingStoreBuffered
+                                                       defer:NO];
+	[result setBackgroundColor:[NSColor whiteColor]];
     [result setOpaque:NO];
     [result setAlphaValue:0.999f];
     [result setShowsResizeIndicator:YES];
@@ -301,247 +252,177 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 	[result setCanHide:NO];
 	[result makeKeyAndOrderFront:nil];
 	[result setReleasedWhenClosed:YES];
-	
-	
+
 	[result performSelector:@selector(close) withObject:nil afterDelay:2.0];
 }
-- (void)processGesture:(NSMutableArray *)theEvents{
-	//lastPoint=NSZeroPoint
-	//NSLog(@"recognizing");
+
+- (void)processGesture:(NSMutableArray *)theEvents {
 	[self setWatchMouse:NO];
-	ACGesture *gesture=[[[ACGesture alloc]initWithEventArray:theEvents]autorelease];
-	NSSize s=[gesture size];
-	NSString *recognizedGesture=nil;
-	if (MAX(s.width,s.height)>64){
-		recognizedGesture=[self recognizeGesture:gesture];
+	ACGesture *gesture = [[[ACGesture alloc] initWithEventArray:theEvents] autorelease];
+	NSSize s = [gesture size];
+	NSString *recognizedGesture = nil;
+	if (MAX(s.width, s.height) > 64){
+		recognizedGesture = [self recognizeGesture:gesture];
 	}
-	//[self showGesture:gesture];
-	if (recognizedGesture){
-		NSDictionary *dict=[NSDictionary dictionaryWithObjectsAndKeys:
-			NSStringFromSize([gesture size]),@"size",
-			NSStringFromPoint([gesture center]),@"center",nil];
-		
-		//		CGPostKeyboardEvent(0,57,TRUE);
-		//		CGPostKeyboardEvent(0,57,FALSE);
-		
+
+	if (recognizedGesture) {
+		NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                              NSStringFromSize([gesture size]), @"size",
+                              NSStringFromPoint([gesture center]), @"center",
+                              nil];
+
 		[[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraGestureRecognizedNotification
                                                                        object:recognizedGesture
                                                                      userInfo:dict
                                                            deliverImmediately:YES];
 		
-		NSString *sound=[preferences objectForKey:@"QSACRecognizedSound"];
-		//[[[[NSSound alloc]initWithContentsOfFile:@"/System/Library/Sounds/Blow.aiff" byReference:YES]autorelease]play];
-		
+		NSString *sound = [preferences objectForKey:@"QSACRecognizedSound"];
+
+#warning tiennou: That will fail if the interface gets localized
 		if (sound && ![sound isEqualToString:@"No Sound"])
-			[[NSSound soundNamed:sound]play];
-		ACGesture *matchGesture=[gestureDictionary objectForKey:recognizedGesture];
-		
-		NSEnumerator *em=[theEvents objectEnumerator];
+			[[NSSound soundNamed:sound] play];
+		ACGesture *matchGesture = [gestureDictionary objectForKey:recognizedGesture];
+
+		/* tiennou: Hmm, that ought to do something... */
+#if 0
+		NSEnumerator *em = [theEvents objectEnumerator];
 		NSEvent *event;
 		while(event=[em nextObject]){
 			//NSLog(@"event %@",event);
 			//[self animateForPoint:[event locationInWindow]];	
 			
 		}
-		NSPoint *points=[matchGesture points];
-		NSColor *color=[self recognizedColor];
-		if (!color)color=[NSColor whiteColor];
+#endif
+
+		NSPoint *points = [matchGesture points];
+		NSColor *color = [self recognizedColor];
+		if (!color)
+            color = [NSColor whiteColor];
 		int i;
-		for (i=0;i<32;i++){
-			NSSize size=[gesture size];
-			float scale=MAX(size.width,size.height);
-			NSPoint p=ACUnitPointWithCenterAndScale(points[i],[gesture center],scale);
-			//	p.x*=100;
-			//			p.y*=100;
-			//			p.x+=100;
-			//			p.y+=100;
-			DDParticle *particle=[[[DDParticle alloc]init]autorelease];
+		for (i = 0; i < 32; i++) {
+			NSSize size = [gesture size];
+			CGFloat scale = MAX(size.width, size.height);
+			NSPoint p = ACUnitPointWithCenterAndScale(points[i], [gesture center], scale);
+            
+			DDParticle *particle = [[[DDParticle alloc] init] autorelease];
 			[particle setPoint:p];
-			particle->xv=30.0f*(-0.5f + RAND1);
-			particle->yv=5.0f*(-0.5f + RAND1);
-			particle->life=((float)i/32)*3.0f + RAND1;
+			particle->xv = 30.0f * (-0.5f + RAND1);
+			particle->yv = 5.0f * (-0.5f + RAND1);
+			particle->life = ((float)i / 32) * 3.0f + RAND1;
 			[particle setColor:color];
 			[(DDGLView *)[[controller window] contentView] addParticle:particle];
 			
 		}
-		
-		//[[[[NSAppleScript alloc]initWithSource:[NSString stringWithFormat:@"say \"%@\"",recognizedGesture]]autorelease]executeAndReturnError:nil];
-		//NSLog(@"recognized %@ %@",recognizedGesture,matchGesture);
-		
-	}else{
-		
-		NSString *sound=[preferences objectForKey:@"QSACFailureSound"];
-		//NSLog(@"sound %@",sound);
+	} else {
+		NSString *sound = [preferences objectForKey:@"QSACFailureSound"];
+#warning tiennou: That will fail if the interface gets localized
 		if (sound && ![sound isEqualToString:@"No Sound"])
-			[[NSSound soundNamed:sound]play];
+			[[NSSound soundNamed:sound] play];
 		
-		NSPoint *points=[gesture points];
-		NSColor *color=[self failureColor];
-		if (!color)color=[NSColor whiteColor];
+		NSPoint *points = [gesture points];
+		NSColor *color = [self failureColor];
+		if (!color)
+            color = [NSColor whiteColor];
 		int i;
-		for (i=0;i<32;i++){
+		for (i = 0; i < 32; i++) {
 			NSSize size=[gesture size];
-			float scale=MAX(size.width,size.height);
-			NSPoint p=ACUnitPointWithCenterAndScale(points[i],[gesture center],scale);
-			//	p.x*=100;
-			//			p.y*=100;
-			//			p.x+=100;
-			//			p.y+=100;
-			DDParticle *particle=[[[DDParticle alloc]init]autorelease];
+			CGFloat scale = MAX(size.width, size.height);
+			NSPoint p = ACUnitPointWithCenterAndScale(points[i], [gesture center], scale);
+			DDParticle *particle = [[[DDParticle alloc] init] autorelease];
 			[particle setPoint:p];
-			particle->xv=300.0f*(-0.5f + RAND1);
-			particle->yv=300.0f*(-0.5f + RAND1);
-			particle->life=((float)i/32)*1.0f + RAND1;
+			particle->xv = 300.0f * (-0.5f + RAND1);
+			particle->yv = 300.0f * (-0.5f + RAND1);
+			particle->life = ((float)i / 32) * 1.0f + RAND1;
 			[particle setColor:color];
-			[(DDGLView *)[[controller window]contentView]addParticle:particle];
-			
+			[(DDGLView *)[[controller window] contentView] addParticle:particle];
 		}
-		
 	}
-	
 	[theEvents removeAllObjects];
 }
 
-#define FILLPOINTDISTANCE (32.0f*(RAND1+0.5))
+#define FILLPOINTDISTANCE (32.0f * (RAND1 + 0.5))
 
 
-- (void)sendEvent:(NSEvent *)event{
-	
-		//NSLog(@"event %@",event);
-	
-	if ([event type]==NSMouseMoved  || [event type]==NSOtherMouseDragged){
-		//if ([events count]==EVENT_COUNT)[events removeObjectAtIndex:0];
-		if (watchMouse){
-			[events addObject:event];
-			[NSObject cancelPreviousPerformRequestsWithTarget:self];
-			[self performSelector:@selector(processGesture:) withObject:events afterDelay:0.3];
-			NSPoint thisPoint=[event locationInWindow];
-			float dx=thisPoint.x-lastPoint.x;
-			float dy=thisPoint.y-lastPoint.y;
-			float dp=hypotf(dx,dy);
-			
-			if (!NSEqualPoints(lastPoint,NSZeroPoint)){
-				float f;
-				NSPoint midPoint=lastPoint;
-				
-				for (f=FILLPOINTDISTANCE;f<dp;f+=FILLPOINTDISTANCE){
-					
-					midPoint.x=lastPoint.x + f/dp * dx;
-					midPoint.y=lastPoint.y + f/dp * dy;
-					[self animateForPoint:midPoint];
-				}
-			}
-			[self animateForPoint:thisPoint];
-			lastPoint=thisPoint;
-		}
-		
-	}else if ([event type]==NSOtherMouseDown){
-		if (mouseActivation && [event buttonNumber]==(mouseActivation-1))
-			[self setWatchMouse:YES];
-		
-	}else if ([event type]==NSOtherMouseUp){
-		if (mouseActivation && [event buttonNumber]==(mouseActivation-1))
-			[self setWatchMouse:NO];
-		
-	}else if ([event type]==NSFlagsChanged){
-		//NSLog(@"Event: %@",event);
-		//NSLog(@"%x %x",[event modifierFlags],modKeyActivation);
-		if (modKeyActivation)
-			[self setWatchMouse:([event modifierFlags] & (1 << modKeyActivation)) > 0];
+- (void)sendEvent:(NSEvent *)event {
+    switch ([event type]) {
+            case NSMouseMoved:
+            case NSOtherMouseDragged: {
+                if (watchMouse) {
+                    [events addObject:event];
+                    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+                    [self performSelector:@selector(processGesture:) withObject:events afterDelay:0.3];
+                    NSPoint thisPoint = [event locationInWindow];
+                    CGFloat dx = thisPoint.x - lastPoint.x;
+                    CGFloat dy = thisPoint.y - lastPoint.y;
+                    CGFloat dp = hypot(dx, dy);
+                    
+                    if (!NSEqualPoints(lastPoint, NSZeroPoint)) {
+                        CGFloat f;
+                        NSPoint midPoint = lastPoint;
+                        
+                        for (f = FILLPOINTDISTANCE; f < dp; f += FILLPOINTDISTANCE) {
+                            midPoint.x = lastPoint.x + f/dp * dx;
+                            midPoint.y = lastPoint.y + f/dp * dy;
+                            [self animateForPoint:midPoint];
+                        }
+                    }
+                    [self animateForPoint:thisPoint];
+                    lastPoint = thisPoint;
+                }
+                break;
+            }
+        case NSOtherMouseDown:
+		case NSOtherMouseUp:
+            if (mouseActivation && [event buttonNumber] == (mouseActivation-1))
+                [self setWatchMouse:[event type] == NSOtherMouseDown];
+            break;
+
+        case NSFlagsChanged:
+            if (modKeyActivation)
+                [self setWatchMouse:([event modifierFlags] & (1 << modKeyActivation)) > 0];
+            break;
 	}
 	[super sendEvent:event];
-	
 }
-- (void)animateForEvent:(NSEvent *)event{
+
+- (void)animateForEvent:(NSEvent *)event {
 	[self animateForPoint:[event locationInWindow]];	
 }
-- (void)animateForPoint:(NSPoint)location{
-	//NSLog(@"%f %f",location.x, location.y);
-	//	[cursorWindow setFrameTopLeftPoint:NSMakePoint(location.x-hotSpot.x,location.y+hotSpot.y)];
-				DDParticle *particle=[[[DDParticle alloc]init]autorelease];
+
+- (void)animateForPoint:(NSPoint)location {
+    DDParticle *particle=[[[DDParticle alloc] init] autorelease];
 	[particle setPoint:location];
-	NSColor *color=[self gestureColor];
-	if (!color)color=[NSColor colorWithCalibratedRed:0.0f green:0.7f blue:1.0f alpha:1.0f];
+	NSColor *color = [self gestureColor];
+	if (!color)
+        color = [NSColor colorWithCalibratedRed:0.0f green:0.7f blue:1.0f alpha:1.0f];
 	[particle setColor:color];
-	[(DDGLView *)[[controller window]contentView]addParticle:particle];
-	
-	//[[[controller window]contentView]addParticleAtPoint:location];
-	//[animator createWindowAtPoint:location];
-	//	[animator animateWindows];
-	//	lastPoint=location;
-	
+	[(DDGLView *)[[controller window] contentView] addParticle:particle];
 }
 
-- (void) spawn{
+- (void) spawn {
 	[self animateForPoint:lastPoint];	
 }
-
-
-#import <math.h>
-//- (void)handleMovementOfX:(float)x andY:(float)y at:(float)t{
-//	
-//	NSTimeInterval diff=t-lastEventTime;
-//	
-//	currentEventNumber=(currentEventNumber+1)%EVENT_COUNT;
-//	
-//	
-//	//NSLog(@"%f %f %d",x,y,currentEventNumber);
-//	
-//	
-//	int i;
-//	float dx=x,dy=y;
-//	for (i=(currentEventNumber-1)%EVENT_COUNT; i!=currentEventNumber;i=(i+EVENT_COUNT-1)%EVENT_COUNT){
-//		dx+=events[i][0];		
-//		dy+=events[i][1];
-//		if (t-events[i][2]>1.0)break;
-//		//NSLog(@"i %d",i);
-//	}
-//	events[currentEventNumber][0]=x;
-//	events[currentEventNumber][1]=y;
-//	events[currentEventNumber][2]=t;
-//	
-//	float distance=sqrt(pow(dy,2)+pow(dx,2));
-//	int newDirection=fmod(round(4+8*atan2(dy,dx)/M_PI/2),8);
-//	
-//	if (distance>100 && newDirection!=direction){
-//		direction=newDirection;
-//		
-//		//		NSLog(@"Dragged in direction:%d persist:%d distance:%d",direction,persist,(int)distance);
-//		
-//		persist=0;
-//		
-//	}else{
-//		persist++;	
-//	}
-//	
-//	
-//}
-//
 
 - (BOOL)watchMouse {
     return watchMouse;
 }
 
 - (void)setWatchMouse:(BOOL)flag {
-	lastPoint=NSZeroPoint;
-	//NSLog(@"watch %d",flag);
+	lastPoint = NSZeroPoint;
     watchMouse = flag;
 }
 
 
 - (NSColor *)gestureColor { return [[gestureColor retain] autorelease]; }
-- (void)setGestureColor:(NSColor *)newGestureColor
-{
+- (void)setGestureColor:(NSColor *)newGestureColor {
     if (gestureColor != newGestureColor) {
         [gestureColor release];
         gestureColor = [newGestureColor retain];
     }
 }
 
-
 - (NSColor *)recognizedColor { return [[recognizedColor retain] autorelease]; }
-- (void)setRecognizedColor:(NSColor *)newRecognizedColor
-{
+- (void)setRecognizedColor:(NSColor *)newRecognizedColor {
     if (recognizedColor != newRecognizedColor) {
         [recognizedColor release];
         recognizedColor = [newRecognizedColor retain];
@@ -549,18 +430,15 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 }
 
 - (NSColor *)failureColor { return [[failureColor retain] autorelease]; }
-- (void)setFailureColor:(NSColor *)newFailureColor
-{
+- (void)setFailureColor:(NSColor *)newFailureColor {
     if (failureColor != newFailureColor) {
         [failureColor release];
         failureColor = [newFailureColor retain];
     }
 }
 
-
 - (NSDictionary *)preferences { return [[preferences retain] autorelease]; }
-- (void)setPreferences:(NSDictionary *)newPreferences
-{
+- (void)setPreferences:(NSDictionary *)newPreferences {
     if (preferences != newPreferences) {
         [preferences release];
         preferences = [newPreferences retain];
@@ -576,42 +454,4 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 	laserKey = [newLaserKey retain];
 }
 
-
 @end
-
-
-
-//	NSLog(@"MOVED %04d %04d %f",(int)[event deltaX],(int)[event deltaY], [event timestamp])	;
-//[self handleMovementOfX:[event deltaX] andY:[event deltaY] at:[event timestamp]];	
-
-//		if ((GetCurrentKeyModifiers() & controlKey)){
-//			
-//			NSPoint loc=[NSEvent mouseLocation];
-//			loc.y=NSHeight([[NSScreen mainScreen]frame])-loc.y;
-//			
-//	
-//			int x=-[event deltaX]*3;
-//			int y=-[event deltaY]*10;
-//			
-//			int eventcount=MAX(1+abs(x) / 10,1+abs(y) /10);
-//			
-//			//NSLog(@"MOVE %04d %04d %d %f",x,y, eventcount,[event timestamp])	;
-//			int i;
-//			while (eventcount>0){
-//				int dx=x/eventcount;
-//				int dy=y/eventcount;
-//				eventcount--;
-//				x-=dx;
-//				y-=dy;
-//				//NSLog(@">>>> %04d %04d %f",dx,dy, [event timestamp])	;
-//				CGPostScrollWheelEvent(2,dy,dx);
-//			}
-//			//
-//			
-//			CGWarpMouseCursorPosition(CGPointMake(loc.x-[event deltaX],loc.y-[event deltaY] ));	
-//			
-//		//	CGPostScrollWheelEvent(1,[event deltaX]);
-////			GetGlobalMouse(Point * globalMouse)                           
-//			}
-//		
-//
