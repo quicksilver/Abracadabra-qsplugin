@@ -58,6 +58,24 @@
 		</array>
 		<key>description</key>
 		<string>Trigger commands with gestures</string>
+		<key>extendedDescription</key>
+		<string>&lt;h1&gt;Abracadabra Triggers&lt;/h1&gt;
+&lt;p&gt;This plug-in allows you to trigger actions in Quicksilver by drawing a gesture on screen using a mouse or trackpad.&lt;/p&gt;
+&lt;p&gt;Gestures are initiated by holding either a modifier key (Shift, Control, etc.) or a mouse button.&lt;/p&gt;
+&lt;p&gt;Colors and sounds are customizable in the preferences under Abracadabra.&lt;/p&gt;
+&lt;h2&gt;Creating a Trigger&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;In the Triggers… preferences, add a new trigger using the &lt;code&gt;+&lt;/code&gt; button and choose "Gesture".&lt;/li&gt;
+&lt;li&gt;Click somewhere in the info panel's box and hold the button down.&lt;/li&gt;
+&lt;li&gt;Draw the desired gesture, then release the button.&lt;/li&gt;
+&lt;li&gt;Optionally, define the applications where the trigger should be active under the Scope tab.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Tips&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;It helps to practice the gesture a few times before setting it.&lt;/li&gt;
+&lt;li&gt;You can replace an existing gesture at any time by simply drawing a new one.&lt;/li&gt;
+&lt;li&gt;When defining a gesture, only the initial click needs to be inside the box. You can go outside of it when drawing, so draw the gesture at the size that feels natural for real-world use.&lt;/li&gt;
+&lt;/ul&gt;</string>
 		<key>icon</key>
 		<string>Abracadabra</string>
 	</dict>
