@@ -115,29 +115,36 @@
 	
 	//NSLog(@"recognized: %@",identifier);
 	QSTrigger *trigger = [[QSTriggerCenter sharedInstance] triggerWithID:identifier];
-	BOOL showStatus = [[[trigger info] objectForKey:@"showWindow"] boolValue];
-	QSWindow *window = nil;
-	if (showStatus) {
-		window = (QSWindow *)[self triggerDisplayWindowWithTrigger:trigger];
-		NSDictionary *info = [notif userInfo];
-		NSPoint center = NSPointFromString([info objectForKey:@"center"]);
-		
-		[window setFrame:NSOffsetRect([window frame], center.x - NSMidX([window frame]), center.y - NSMidY([window frame]))
-                 display:NO];
-		[window setAlphaValue:0];
-		[window reallyOrderFront:self];
-		[window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:
-                               @"0.125", @"duration",
-                               @"QSGrowEffect", @"transformFn",
-                               @"show", @"type",
-                               nil]];
-	}
-
-	[trigger execute];
-	[window flare:self];
-
-	[window reallyOrderOut:nil];
-	[window close];
+    if ([trigger activated]) {
+        // if the trigger is in scope, pass the information back for the "matched" animation
+        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraGestureInScopeNotification object:identifier userInfo:[notif userInfo] deliverImmediately:YES];
+        BOOL showStatus = [[[trigger info] objectForKey:@"showWindow"] boolValue];
+        QSWindow *window = nil;
+        if (showStatus) {
+            window = (QSWindow *)[self triggerDisplayWindowWithTrigger:trigger];
+            NSDictionary *info = [notif userInfo];
+            NSPoint center = NSPointFromString([info objectForKey:@"center"]);
+            
+            [window setFrame:NSOffsetRect([window frame], center.x - NSMidX([window frame]), center.y - NSMidY([window frame]))
+                     display:NO];
+            [window setAlphaValue:0];
+            [window reallyOrderFront:self];
+            [window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"0.125", @"duration",
+                                   @"QSGrowEffect", @"transformFn",
+                                   @"show", @"type",
+                                   nil]];
+        }
+        
+        [trigger execute];
+        [window flare:self];
+        
+        [window reallyOrderOut:nil];
+        [window close];
+    } else {
+        // pass the information back for the "no match" animation
+        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraGestureOutOfScopeNotification object:identifier userInfo:[notif userInfo] deliverImmediately:YES];
+    }
 }
 
 
