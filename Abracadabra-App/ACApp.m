@@ -321,12 +321,12 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
     
     NSPoint *points = [matchGesture points];
     NSColor *color = [self recognizedColor];
+    NSSize size = [gesture size];
+    CGFloat scale = MAX(size.width, size.height);
     if (!color)
         color = [NSColor whiteColor];
     int i;
     for (i = 0; i < 32; i++) {
-        NSSize size = [gesture size];
-        CGFloat scale = MAX(size.width, size.height);
         NSPoint p = ACUnitPointWithCenterAndScale(points[i], [gesture center], scale);
         
         DDParticle *particle = [[[DDParticle alloc] init] autorelease];
@@ -351,12 +351,12 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
     
     NSPoint *points = [gesture points];
     NSColor *color = [self failureColor];
+    NSSize size=[gesture size];
+    CGFloat scale = MAX(size.width, size.height);
     if (!color)
         color = [NSColor whiteColor];
     int i;
     for (i = 0; i < 32; i++) {
-        NSSize size=[gesture size];
-        CGFloat scale = MAX(size.width, size.height);
         NSPoint p = ACUnitPointWithCenterAndScale(points[i], [gesture center], scale);
         DDParticle *particle = [[[DDParticle alloc] init] autorelease];
         [particle setPoint:p];
