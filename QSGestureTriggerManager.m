@@ -100,7 +100,9 @@
 }
 
 - (NSCell *)descriptionCellForTrigger:(QSTrigger *)trigger {
-	return	[[[QSGestureTableCell alloc] init] autorelease];
+    QSGestureTableCell *gCell = [[[QSGestureTableCell alloc] init] autorelease];
+    [gCell setRepresentedObject:[trigger dictionaryRepresentation]];
+	return gCell;
 }
 
 - (void)appTerminating:(NSNotification *)notif {
