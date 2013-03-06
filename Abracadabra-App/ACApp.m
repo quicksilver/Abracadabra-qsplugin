@@ -52,8 +52,6 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 		EventTypeSpec eventTypes[4] = {
             {kEventClassMouse, kEventMouseMoved},
             {kEventClassMouse, kEventMouseDragged},
-            {kEventClassMouse, kEventMouseUp},
-            {kEventClassMouse, kEventMouseDown},
         };
 
 		EventHandlerUPP handlerFunction = NewEventHandlerUPP(mouseMoved);
@@ -66,6 +64,14 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
             RemoveEventHandler(mouseMoveRef);
         mouseMoveRef = NULL;
     }
+    [NSEvent addGlobalMonitorForEventsMatchingMask:NSOtherMouseDownMask handler:^(NSEvent *event){
+        [self setWatchMouse:(mouseActivation && [event buttonNumber] == (mouseActivation - 1))];
+    }];
+    [NSEvent addGlobalMonitorForEventsMatchingMask:NSOtherMouseUpMask handler:^(NSEvent *event){
+        if (watchMouse) {
+            [self setWatchMouse:NO];
+        }
+    }];
 }
 
 - (void)setMonitorModKeys:(BOOL)flag {
@@ -399,12 +405,6 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
                 }
                 break;
             }
-        case NSOtherMouseDown:
-		case NSOtherMouseUp:
-            if (mouseActivation && [event buttonNumber] == (mouseActivation-1))
-                [self setWatchMouse:[event type] == NSOtherMouseDown];
-            break;
-
         case NSFlagsChanged:
             if (modKeyActivation) {
                 NSUInteger flags = [event modifierFlags] & NSDeviceIndependentModifierFlagsMask;
