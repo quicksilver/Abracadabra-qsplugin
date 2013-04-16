@@ -10,10 +10,10 @@
 		7F19868C096DCA640062711E /* ACLaserKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F19868B096DCA640062711E /* ACLaserKey.m */; };
 		7FD9271A0959E89B00334C11 /* ACGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD927190959E89B00334C11 /* ACGesture.m */; };
 		7FE0061D0A1514930014197D /* ACGestureDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD92B21095BB0C700334C11 /* ACGestureDisplayView.m */; };
-		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		D40036F4171D8468009F099B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D40036F2171D8468009F099B /* MainMenu.xib */; };
 		E14379EF07AA2340007ACBF5 /* Abracadabra.icns in Resources */ = {isa = PBXBuildFile; fileRef = E14379EE07AA2340007ACBF5 /* Abracadabra.icns */; };
 		E16B062607A703E9003FDF4F /* Sparkle.png in Resources */ = {isa = PBXBuildFile; fileRef = E16B062507A703E9003FDF4F /* Sparkle.png */; };
 		E17B202707A73746004A565A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17B202607A73746004A565A /* OpenGL.framework */; };
@@ -31,7 +31,6 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* Abracadabra_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Abracadabra_Prefix.pch; sourceTree = "<group>"; };
@@ -52,6 +51,7 @@
 		CD8CCC3815F2AC26001ACD94 /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
 		CD8CCC3915F2AC26001ACD94 /* Quicksilver.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Quicksilver.pch; sourceTree = "<group>"; };
 		CD8CCC3A15F2AC26001ACD94 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		D40036F3171D8468009F099B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E14379EE07AA2340007ACBF5 /* Abracadabra.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Abracadabra.icns; sourceTree = "<group>"; };
 		E16B062507A703E9003FDF4F /* Sparkle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sparkle.png; sourceTree = "<group>"; };
 		E17B202607A73746004A565A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
@@ -159,7 +159,7 @@
 				E16B062507A703E9003FDF4F /* Sparkle.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
-				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
+				D40036F2171D8468009F099B /* MainMenu.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -222,6 +222,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Abracadabra */;
 			projectDirPath = "";
@@ -237,13 +238,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				E191D70D079899DC001FFD69 /* ACApp.h in Resources */,
 				E16B062607A703E9003FDF4F /* Sparkle.png in Resources */,
 				E1C9D60107A731F9002A1BAE /* ACSparkleWindowController.h in Resources */,
 				E1C9D63B07A73283002A1BAE /* DDGLView.h in Resources */,
 				E14379EF07AA2340007ACBF5 /* Abracadabra.icns in Resources */,
+				D40036F4171D8468009F099B /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,12 +276,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
+		D40036F2171D8468009F099B /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				29B97319FDCFA39411CA2CEA /* English */,
+				D40036F3171D8468009F099B /* English */,
 			);
-			name = MainMenu.nib;
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
