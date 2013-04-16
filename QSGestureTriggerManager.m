@@ -94,6 +94,7 @@
                                                  selector:@selector(appTerminating:)
                                                      name:NSApplicationWillTerminateNotification
                                                    object:nil];
+        abraPID = 0;
         [self launchAbra];
     }
     return self;
@@ -171,9 +172,10 @@
 	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
 	NSString *path = [bundle pathForResource:@"Abracadabra" ofType:@"app"];
 	NDProcess *proc = [NDProcess processForApplicationPath:path];
+    pid_t abraInstancePID = proc ? [proc processID] : 1;
 
-	if (!proc) {
-		NSLog(@"Launching Abracadabra");
+	if (abraInstancePID != abraPID) {
+		//NSLog(@"Launching Abracadabra");
         FSRef ref;
         [path getFSRef:&ref];
         OSStatus status;
@@ -187,8 +189,12 @@
         param.argv=NULL;
         param.initialEvent=NULL;
         status = LSOpenApplication(&param,NULL);
-        if (status != noErr)
+        if (status == noErr) {
+            proc = [NDProcess processForApplicationPath:path];
+            abraPID = [proc processID];
+        } else {
             NSLog(@"Error starting Abracadabra: %ld", (long)status);
+        }
 	}
 }
 
