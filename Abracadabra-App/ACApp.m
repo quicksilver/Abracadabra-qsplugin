@@ -52,8 +52,6 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 		EventTypeSpec eventTypes[4] = {
             {kEventClassMouse, kEventMouseMoved},
             {kEventClassMouse, kEventMouseDragged},
-            {kEventClassMouse, kEventMouseUp},
-            {kEventClassMouse, kEventMouseDown},
         };
 
 		EventHandlerUPP handlerFunction = NewEventHandlerUPP(mouseMoved);
@@ -66,6 +64,14 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
             RemoveEventHandler(mouseMoveRef);
         mouseMoveRef = NULL;
     }
+    [NSEvent addGlobalMonitorForEventsMatchingMask:NSOtherMouseDownMask handler:^(NSEvent *event){
+        [self setWatchMouse:(mouseActivation && [event buttonNumber] == (mouseActivation - 1))];
+    }];
+    [NSEvent addGlobalMonitorForEventsMatchingMask:NSOtherMouseUpMask handler:^(NSEvent *event){
+        if (watchMouse) {
+            [self setWatchMouse:NO];
+        }
+    }];
 }
 
 - (void)setMonitorModKeys:(BOOL)flag {
@@ -116,6 +122,14 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 														   selector:@selector(terminate:)
 															   name:ACAbracadabraShouldQuitNotification
                                                              object:nil];
+        
+        [[NSDistributedNotificationCenter defaultCenter] addObserver:self
+                                                            selector:@selector(showGestureOnMatch:) name:ACAbracadabraGestureInScopeNotification object:nil];
+        [[NSDistributedNotificationCenter defaultCenter] addObserver:self
+                                                            selector:@selector(showGestureMatchFailed:) name:ACAbracadabraGestureOutOfScopeNotification object:nil];
+        
+        // stop watching mouse in response to certain events that are otherwise missed
+        [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(stopWatchingMouse:) name:NSWorkspaceActiveSpaceDidChangeNotification object:nil];
 
 		modKeyActivation = 23; 
 		mouseActivation = 0;
@@ -190,6 +204,10 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 	[self reloadPreferences:nil];
 }
 
+- (void)stopWatchingMouse:(NSNotification *)notif
+{
+    [self setWatchMouse:NO];
+}
 
 // load gesture dictionary from plist file
 - (BOOL)loadGestureDictFromFile:(NSString *)filePath {
@@ -269,75 +287,91 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 		NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                               NSStringFromSize([gesture size]), @"size",
                               NSStringFromPoint([gesture center]), @"center",
+                              [gesture dictionaryRepresentation], @"gestureDict",
                               nil];
 
 		[[NSDistributedNotificationCenter defaultCenter] postNotificationName:ACAbracadabraGestureRecognizedNotification
                                                                        object:recognizedGesture
                                                                      userInfo:dict
                                                            deliverImmediately:YES];
-		
-		NSString *sound = [preferences objectForKey:@"QSACRecognizedSound"];
-
-#warning tiennou: That will fail if the interface gets localized
-		if (sound && ![sound isEqualToString:@"No Sound"])
-			[[NSSound soundNamed:sound] play];
-		ACGesture *matchGesture = [gestureDictionary objectForKey:recognizedGesture];
-
-		/* tiennou: Hmm, that ought to do something... */
-#if 0
-		NSEnumerator *em = [theEvents objectEnumerator];
-		NSEvent *event;
-		while(event=[em nextObject]){
-			//NSLog(@"event %@",event);
-			//[self animateForPoint:[event locationInWindow]];	
-			
-		}
-#endif
-
-		NSPoint *points = [matchGesture points];
-		NSColor *color = [self recognizedColor];
-		if (!color)
-            color = [NSColor whiteColor];
-		int i;
-		for (i = 0; i < 32; i++) {
-			NSSize size = [gesture size];
-			CGFloat scale = MAX(size.width, size.height);
-			NSPoint p = ACUnitPointWithCenterAndScale(points[i], [gesture center], scale);
-            
-			DDParticle *particle = [[[DDParticle alloc] init] autorelease];
-			[particle setPoint:p];
-			particle->xv = 30.0f * (-0.5f + RAND1);
-			particle->yv = 5.0f * (-0.5f + RAND1);
-			particle->life = ((float)i / 32) * 3.0f + RAND1;
-			[particle setColor:color];
-			[(DDGLView *)[[controller window] contentView] addParticle:particle];
-			
-		}
 	} else {
-		NSString *sound = [preferences objectForKey:@"QSACFailureSound"];
-#warning tiennou: That will fail if the interface gets localized
-		if (sound && ![sound isEqualToString:@"No Sound"])
-			[[NSSound soundNamed:sound] play];
-		
-		NSPoint *points = [gesture points];
-		NSColor *color = [self failureColor];
-		if (!color)
-            color = [NSColor whiteColor];
-		int i;
-		for (i = 0; i < 32; i++) {
-			NSSize size=[gesture size];
-			CGFloat scale = MAX(size.width, size.height);
-			NSPoint p = ACUnitPointWithCenterAndScale(points[i], [gesture center], scale);
-			DDParticle *particle = [[[DDParticle alloc] init] autorelease];
-			[particle setPoint:p];
-			particle->xv = 300.0f * (-0.5f + RAND1);
-			particle->yv = 300.0f * (-0.5f + RAND1);
-			particle->life = ((float)i / 32) * 1.0f + RAND1;
-			[particle setColor:color];
-			[(DDGLView *)[[controller window] contentView] addParticle:particle];
-		}
+		NSDictionary *dict = [NSDictionary dictionaryWithObject:[gesture dictionaryRepresentation] forKey:@"gestureDict"];
+        NSNotification *localFailure = [NSNotification notificationWithName:@"localMatchFailed" object:nil userInfo:dict];
+        [self showGestureMatchFailed:localFailure];
 	}
 	[theEvents removeAllObjects];
+}
+
+- (void)showGestureOnMatch:(NSNotification *)notif
+{
+    NSString *recognizedGesture = [notif object];
+    NSDictionary *gestureDict = [[notif userInfo] objectForKey:@"gestureDict"];
+    ACGesture *gesture = [ACGesture gestureWithDictionary:gestureDict];
+    NSString *sound = [preferences objectForKey:@"QSACRecognizedSound"];
+    
+#warning tiennou: That will fail if the interface gets localized
+    if (sound && ![sound isEqualToString:@"No Sound"])
+        [[NSSound soundNamed:sound] play];
+    ACGesture *matchGesture = [gestureDictionary objectForKey:recognizedGesture];
+    
+    /* tiennou: Hmm, that ought to do something... */
+#if 0
+    NSEnumerator *em = [theEvents objectEnumerator];
+    NSEvent *event;
+    while(event=[em nextObject]){
+        //NSLog(@"event %@",event);
+        //[self animateForPoint:[event locationInWindow]];
+        
+    }
+#endif
+    
+    NSPoint *points = [matchGesture points];
+    NSColor *color = [self recognizedColor];
+    NSSize size = [gesture size];
+    CGFloat scale = MAX(size.width, size.height);
+    if (!color)
+        color = [NSColor whiteColor];
+    int i;
+    for (i = 0; i < 32; i++) {
+        NSPoint p = ACUnitPointWithCenterAndScale(points[i], [gesture center], scale);
+        
+        DDParticle *particle = [[[DDParticle alloc] init] autorelease];
+        [particle setPoint:p];
+        particle->xv = 30.0f * (-0.5f + RAND1);
+        particle->yv = 5.0f * (-0.5f + RAND1);
+        particle->life = ((float)i / 32) * 3.0f + RAND1;
+        [particle setColor:color];
+        [(DDGLView *)[[controller window] contentView] addParticle:particle];
+        
+    }
+}
+
+- (void)showGestureMatchFailed:(NSNotification *)notif
+{
+    NSDictionary *gestureDict = [[notif userInfo] objectForKey:@"gestureDict"];
+    ACGesture *gesture = [ACGesture gestureWithDictionary:gestureDict];
+    NSString *sound = [preferences objectForKey:@"QSACFailureSound"];
+#warning tiennou: That will fail if the interface gets localized
+    if (sound && ![sound isEqualToString:@"No Sound"])
+        [[NSSound soundNamed:sound] play];
+    
+    NSPoint *points = [gesture points];
+    NSColor *color = [self failureColor];
+    NSSize size=[gesture size];
+    CGFloat scale = MAX(size.width, size.height);
+    if (!color)
+        color = [NSColor whiteColor];
+    int i;
+    for (i = 0; i < 32; i++) {
+        NSPoint p = ACUnitPointWithCenterAndScale(points[i], [gesture center], scale);
+        DDParticle *particle = [[[DDParticle alloc] init] autorelease];
+        [particle setPoint:p];
+        particle->xv = 300.0f * (-0.5f + RAND1);
+        particle->yv = 300.0f * (-0.5f + RAND1);
+        particle->life = ((float)i / 32) * 1.0f + RAND1;
+        [particle setColor:color];
+        [(DDGLView *)[[controller window] contentView] addParticle:particle];
+    }
 }
 
 #define FILLPOINTDISTANCE (32.0f * (RAND1 + 0.5))
@@ -371,15 +405,11 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
                 }
                 break;
             }
-        case NSOtherMouseDown:
-		case NSOtherMouseUp:
-            if (mouseActivation && [event buttonNumber] == (mouseActivation-1))
-                [self setWatchMouse:[event type] == NSOtherMouseDown];
-            break;
-
         case NSFlagsChanged:
-            if (modKeyActivation)
-                [self setWatchMouse:([event modifierFlags] & (1 << modKeyActivation)) > 0];
+            if (modKeyActivation) {
+                NSUInteger flags = [event modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+                [self setWatchMouse:(flags == 1 << modKeyActivation)];
+            }
             break;
 	}
 	[super sendEvent:event];
@@ -408,6 +438,7 @@ OSStatus mouseActivated(EventHandlerCallRef nextHandler, EventRef theEvent, void
 }
 
 - (void)setWatchMouse:(BOOL)flag {
+    //NSLog(@"Abracadabra: %@watching mouse", flag ? @"" : @"not ");
 	lastPoint = NSZeroPoint;
     watchMouse = flag;
 }

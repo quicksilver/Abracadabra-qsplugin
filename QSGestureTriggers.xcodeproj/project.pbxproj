@@ -10,11 +10,9 @@
 		7F35FF4007F9ACD90056051D /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F35FF3C07F9ACD90056051D /* QSCore.framework */; };
 		7F35FF4207F9ACD90056051D /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F35FF3E07F9ACD90056051D /* QSFoundation.framework */; };
 		7F4AE9060971870500C9B950 /* QSAbracadabraPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4AE9050971870500C9B950 /* QSAbracadabraPrefPane.m */; };
-		7F4AE911097188E500C9B950 /* QSAbracadabraPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4AE910097188E500C9B950 /* QSAbracadabraPrefPane.nib */; };
 		7F4AE9180971896600C9B950 /* Abracadabra.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7F4AE9170971896600C9B950 /* Abracadabra.icns */; };
 		7F699007096E34B200420E96 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FFA8E9C0816CCCA00A858CD /* QSEffects.framework */; };
 		7F699008096E34B300420E96 /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FFA8E9D0816CCCA00A858CD /* QSInterface.framework */; };
-		7F8404CD096A481A006E6F0E /* QSGestureTrigger.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F8404CC096A481A006E6F0E /* QSGestureTrigger.nib */; };
 		7F8404DB096A4857006E6F0E /* QSGestureTriggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8404DA096A4857006E6F0E /* QSGestureTriggerManager.m */; };
 		7F84051A096A4B1D006E6F0E /* ACGestureEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F840515096A4B1D006E6F0E /* ACGestureEditView.m */; };
 		7F84051B096A4B1D006E6F0E /* ACGestureDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F840517096A4B1D006E6F0E /* ACGestureDisplayView.m */; };
@@ -23,6 +21,8 @@
 		7FE0063A0A1514C40014197D /* QSGestureDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE006390A1514C40014197D /* QSGestureDisplayView.m */; };
 		8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
 		CDD640E815F2AD800007CB68 /* Abracadabra.app in Resources */ = {isa = PBXBuildFile; fileRef = CDD640E715F2AD800007CB68 /* Abracadabra.app */; };
+		D40036EE171D808A009F099B /* QSAbracadabraPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = D40036EC171D808A009F099B /* QSAbracadabraPrefPane.xib */; };
+		D40036EF171D808A009F099B /* QSGestureTrigger.xib in Resources */ = {isa = PBXBuildFile; fileRef = D40036ED171D808A009F099B /* QSGestureTrigger.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,9 +48,7 @@
 		7F35FF3E07F9ACD90056051D /* QSFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F4AE9040971870500C9B950 /* QSAbracadabraPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSAbracadabraPrefPane.h; sourceTree = "<group>"; };
 		7F4AE9050971870500C9B950 /* QSAbracadabraPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSAbracadabraPrefPane.m; sourceTree = "<group>"; };
-		7F4AE910097188E500C9B950 /* QSAbracadabraPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSAbracadabraPrefPane.nib; sourceTree = "<group>"; };
 		7F4AE9170971896600C9B950 /* Abracadabra.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Abracadabra.icns; sourceTree = "<group>"; };
-		7F8404CC096A481A006E6F0E /* QSGestureTrigger.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSGestureTrigger.nib; sourceTree = "<group>"; };
 		7F8404D9096A4857006E6F0E /* QSGestureTriggerManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSGestureTriggerManager.h; sourceTree = "<group>"; };
 		7F8404DA096A4857006E6F0E /* QSGestureTriggerManager.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSGestureTriggerManager.m; sourceTree = "<group>"; };
 		7F840514096A4B1D006E6F0E /* ACGestureEditView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ACGestureEditView.h; path = "Abracadabra-App/ACGestureEditView.h"; sourceTree = "<group>"; };
@@ -73,6 +71,8 @@
 		CDCB07B315B9D75800AA0D90 /* Quicksilver.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quicksilver.pch; sourceTree = "<group>"; };
 		CDCB07B415B9D75800AA0D90 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		CDD640E715F2AD800007CB68 /* Abracadabra.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Abracadabra.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D40036EC171D808A009F099B /* QSAbracadabraPrefPane.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSAbracadabraPrefPane.xib; sourceTree = "<group>"; };
+		D40036ED171D808A009F099B /* QSGestureTrigger.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSGestureTrigger.xib; sourceTree = "<group>"; };
 		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -111,9 +111,9 @@
 				CDD640E715F2AD800007CB68 /* Abracadabra.app */,
 				7FB780D009788C1700E62ABE /* Gesture.png */,
 				7F4AE9170971896600C9B950 /* Abracadabra.icns */,
-				7F4AE910097188E500C9B950 /* QSAbracadabraPrefPane.nib */,
-				7F8404CC096A481A006E6F0E /* QSGestureTrigger.nib */,
 				8D1AC9730486D14A00FE50C9 /* Info.plist */,
+				D40036EC171D808A009F099B /* QSAbracadabraPrefPane.xib */,
+				D40036ED171D808A009F099B /* QSGestureTrigger.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -247,11 +247,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F8404CD096A481A006E6F0E /* QSGestureTrigger.nib in Resources */,
-				7F4AE911097188E500C9B950 /* QSAbracadabraPrefPane.nib in Resources */,
 				7F4AE9180971896600C9B950 /* Abracadabra.icns in Resources */,
 				7FB780D109788C1700E62ABE /* Gesture.png in Resources */,
 				CDD640E815F2AD800007CB68 /* Abracadabra.app in Resources */,
+				D40036EE171D808A009F099B /* QSAbracadabraPrefPane.xib in Resources */,
+				D40036EF171D808A009F099B /* QSGestureTrigger.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
