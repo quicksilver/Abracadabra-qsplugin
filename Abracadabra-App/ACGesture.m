@@ -242,6 +242,9 @@ void ACReducePointsInPath2(NSPointPointer oldPoints, int oldCount, NSPointPointe
 	center.y = (maxY + minY) / 2.0;
 	
 	scale = 1.0 / MAX(size.width, size.height);
+    if (!isfinite(scale))
+        scale = 1.0;
+
 	// Do the scaling
 	for (i = 0; i < GESTURE_LENGTH; i++) {
 		points[i].x -= center.x;
